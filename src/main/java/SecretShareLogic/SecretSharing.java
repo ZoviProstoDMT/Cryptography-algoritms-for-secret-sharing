@@ -7,18 +7,16 @@ import java.util.Scanner;
 public abstract class SecretSharing {
 
     static Scanner sc = new Scanner(System.in);
-    protected static int n = 100; // Число частей ключа
+    protected static int n = 20; // Число частей ключа
     protected static int k = 5; // Минимальный порог для восстановления ключа
     protected static int f = 727; // Простое число, модуль конечного поля
-    protected int p = 227; // Большое простое число
-    protected int q = findPrimeUnder(p); // Большое простое число, которое делит p-1
-    protected int g = findBaseOfOrd(q); // g имеет порядок q
-    protected static int secret;
-    protected static ArrayList<Point> xyKey = new ArrayList<>(); // Список из ключей вида (х,у)
+    protected static int secret = 33;
+    protected static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
     protected static Polynom polynom;
 
     // Генирируем случайно исксы без повторений, затем получаем y = f(x)
     protected void generateKeys() {
+        xyKey = new ArrayList<>();
         HashSet<Double> set = new HashSet<>(); // Множество, заполняющееся без повторений
         while (set.size() != n) {
             int rand = (int) (Math.random() * (f - 1));
@@ -59,6 +57,43 @@ public abstract class SecretSharing {
         System.out.println();
     }
 
+    protected void findSecret() {
+        ArrayList<Point> points = new ArrayList<>(); // Выбранные точки для расшифровки секрета
+        System.out.println("Выпишете через пробел k = " + k + " ключей, по которым будет восстановлен секрет: ");
+        for (int i = 0; i < k; i ++) {
+            int num = sc.nextInt();
+            points.add(xyKey.get(num-1));
+        }
+        System.out.print("Выбранные точки: ");
+        for (Point p : points) {
+            System.out.print(p + " ");
+        }
+        System.out.println();
+
+        double res = 1;
+        double sum = 0;
+
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < k; j++) {
+                if (j != i) {
+                    double temp = points.get(i).getX() - points.get(j).getX();
+                    if (temp < 0)
+                        temp += f;
+                    res *= -points.get(j).getX() * reverseNumber(temp);
+                    res %= f;
+                }
+            }
+            sum += (res * points.get(i).getY());
+            sum %= f;
+            res = 1;
+        }
+        while (sum < 0)
+            sum += f;
+
+        System.out.println("Секрет: " + sum);
+        System.out.println();
+    }
+
     // Поиск обратного числа в поле Fp
     protected int reverseNumber(double e) {
         double res;
@@ -70,52 +105,6 @@ public abstract class SecretSharing {
         return 0;
     }
 
-    protected int findOrd(int a) {
-        int ord = 1;
-        while ((Math.pow(a,ord))%f != 1)
-            ord++;
-        return ord;
-    }
-
-    protected int findBaseOfOrd(int q) {
-        int res;
-        for (int g = 2; g < f-1; g++) {
-            double temp = Math.pow(g,q)%f;
-            if (temp == 1) {
-                res = g;
-                return res;
-            }
-        }
-        return 0;
-    }
-
-    protected int findBiggestPrimeUnder(int p) {
-        int p1 = p - 1;
-        int q = p - 2;
-        while (!(isPrime(q)) && !(p1%q==0)) {
-            q--;
-        }
-        return q;
-    }
-
-    protected int findPrimeUnder(int p) {
-        int p1 = p - 1;
-        int q = 11;
-        while (!(isPrime(q) && (p1%q==0))) {
-            q++;
-        }
-        return q;
-    }
-
-    protected boolean isPrime(int p) {
-        for (int i=2; i<=p/2; i++) {
-            int temp = p % i;
-            if (temp == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public static int getSecret() {
         return secret;
@@ -153,5 +142,4 @@ public abstract class SecretSharing {
         return polynom;
     }
 
-    protected abstract void generate();
 }

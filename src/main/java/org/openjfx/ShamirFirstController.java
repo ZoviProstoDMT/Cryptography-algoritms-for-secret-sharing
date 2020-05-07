@@ -28,10 +28,10 @@ public class ShamirFirstController {
     void initialize() {
 
         generateButton.setOnAction(actionEvent -> {
-            SecretSharing.setSecret(Integer.parseInt(secretField.getText()));
-            SecretSharing.setF(Integer.parseInt(fField.getText()));
-            SecretSharing.setN(Integer.parseInt(nField.getText()));
-            SecretSharing.setK(Integer.parseInt(kField.getText()));
+//            SecretSharing.setSecret(Integer.parseInt(secretField.getText()));
+//            SecretSharing.setF(Integer.parseInt(fField.getText()));
+//            SecretSharing.setN(Integer.parseInt(nField.getText()));
+//            SecretSharing.setK(Integer.parseInt(kField.getText()));
             try {
                 App.setRoot("shamirSecondPage");
             } catch (IOException e) {

@@ -5,6 +5,8 @@ public class Main {
     static FeldmanShamirsSecretSharing feldmanShamirsSecretSharing = new FeldmanShamirsSecretSharing();
 
     public static void main(String[] args) {
-        shamirsSecretSharing.generate();
+        shamirsSecretSharing.start();
+        feldmanShamirsSecretSharing.start();
+
     }
 }

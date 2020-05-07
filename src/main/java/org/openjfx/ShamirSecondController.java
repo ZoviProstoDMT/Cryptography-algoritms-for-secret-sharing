@@ -35,7 +35,7 @@ public class ShamirSecondController {
 
     @FXML
     void initialize() {
-         shamirsSecretSharing.generate();
+         shamirsSecretSharing.start();
 //        polynomField.setText(SecretSharing.getPolynom().toString());
 //        polynomField2.setText(SecretSharing.getPolynom().toString());
 //        polynomField3.setText(SecretSharing.getPolynom().toString());
