@@ -74,19 +74,19 @@ public class Polynom {
     }
 
     public void printCoefficients() {
-        for (int i : coefficients) {
-            if (coefficients.indexOf(i) == coefficients.size()-1)
-                System.out.println("a" + coefficients.indexOf(i) + " = " + i + ".");
+        for (int i = 0; i < coefficients.size(); i++) {
+            if (i == coefficients.size()-1)
+                System.out.print("a" + i + " = " + coefficients.get(i) + ".");
             else
-                System.out.print("a" + coefficients.indexOf(i) + " = " + i + ", ");
+                System.out.print("a" + i + " = " + coefficients.get(i) + ", ");
         }
     }
 
     public void generatePolynomY(int dim) {
-        polynomY.add(" ");
-        polynomY.add("y");
+        polynomY.add("");
+        polynomY.add("x");
         for (int i = 2; i < dim; i++) {
-            polynomY.add("y^" + i);
+            polynomY.add("x^" + i);
         }
     }
 
