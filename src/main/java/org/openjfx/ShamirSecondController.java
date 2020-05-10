@@ -1,14 +1,18 @@
 package org.openjfx;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import SecretShareLogic.SecretSharing;
 import SecretShareLogic.ShamirsSecretSharing;
+import SecretShareLogic.VerifiableSecretSharing;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class ShamirSecondController {
@@ -20,24 +24,28 @@ public class ShamirSecondController {
     private URL location;
 
     @FXML
+    private ImageView closeBtn;
+
+    @FXML
     private Button generateButton;
+
+    @FXML
+    private Button backBtn;
 
     @FXML
     private Label polynomField;
 
     @FXML
-    private TextField polynomField2;
+    private ImageView backBtnIcon;
 
     @FXML
-    private Text polynomField3;
+    private ListView<?> keyList;
 
-    ShamirsSecretSharing shamirsSecretSharing = new ShamirsSecretSharing();
+    VerifiableSecretSharing verifiableSecretSharing = new VerifiableSecretSharing();
 
     @FXML
     void initialize() {
-         shamirsSecretSharing.start();
-//        polynomField.setText(SecretSharing.getPolynom().toString());
-//        polynomField2.setText(SecretSharing.getPolynom().toString());
-//        polynomField3.setText(SecretSharing.getPolynom().toString());
+        verifiableSecretSharing.startMethod();
+        polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString());
     }
 }

@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirFirstController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="700.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirFirstController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/background.jpg" />
+            <Image url="@../../img/background.jpg" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="99.0" prefWidth="700.0" styleClass="header" stylesheets="@styles.css" />
@@ -42,7 +42,12 @@
                </font>
             </Label>
             <TextField fx:id="kField" layoutX="540.0" layoutY="211.0" prefHeight="30.0" prefWidth="82.0" />
-            <Button fx:id="generateButton" layoutX="254.0" layoutY="297.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="192.0" stylesheets="@styles.css" text="РАССЧИТАТЬ" />
+            <Button fx:id="generateButton" layoutX="275.0" layoutY="303.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" stylesheets="@styles.css" text="РАССЧИТАТЬ" />
+            <ImageView fx:id="closeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="665.0" layoutY="-94.0" opacity="0.75" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../../img/close.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
       <Label layoutX="187.0" layoutY="12.0" prefHeight="38.0" prefWidth="310.0" stylesheets="@styles.css" text="Схема разделения секрета">
          <font>

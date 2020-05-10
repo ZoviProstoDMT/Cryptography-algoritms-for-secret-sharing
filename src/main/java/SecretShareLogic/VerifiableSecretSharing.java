@@ -12,9 +12,9 @@ public class VerifiableSecretSharing {
     protected int g = findBaseOfOrd(q); // g первообразный корень mod p
     protected ArrayList<Double> r;
     protected static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
-    protected static Polynom polynom;
+    public static Polynom polynom;
 
-    protected void startMethod() {
+    public void startMethod() {
         System.out.println("p = " + p + ", q = " + q + ", g = " + g);
         System.out.println("n = " + n + ", k = " + k + ", secret = " + secret + "\n");
         generateRandomPolynom();
@@ -22,14 +22,14 @@ public class VerifiableSecretSharing {
         generateKeys();
         showAllKeys();
 
-        while (true) {
-            double test1 = sc.nextDouble();
-            lagrangeFunc(test1);
+//        while (true) {
+//            double test1 = sc.nextDouble();
+//            lagrangeFunc(test1);
 //            double test2 = sc.nextDouble();
 //            Point qwe = new Point(test1,test2);
 //            System.out.println(qwe);
 //            System.out.println(testKey(qwe));
-        }
+//        }
     }
 
     public static long getPRoot(long p) {
@@ -80,7 +80,7 @@ public class VerifiableSecretSharing {
     protected void generateR() {
         r = new ArrayList<>();
         for (int i = 0; i < k; i++) {
-            double temp = Math.pow(g,polynom.coefficients.get(i))%p;
+            double temp = Math.pow(g,polynom.coefficients.get(i)) % p;
             r.add(temp);
             if (i == k-1)
                 System.out.print("r" + i + " = " + temp + ".");
