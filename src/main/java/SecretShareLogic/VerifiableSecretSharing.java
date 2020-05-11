@@ -6,40 +6,102 @@ public class VerifiableSecretSharing {
     static Scanner sc = new Scanner(System.in);
     protected static int n = 10; // Число частей ключа
     protected static int k = 5; // Минимальный порог для восстановления ключа
-    protected static int secret = 9;
-    protected int p = 307; // Большое простое число
-    protected int q = findPrimeUnder(p);
-    protected int g = findBaseOfOrd(q); // g первообразный корень mod p
+    protected static int secret = 5;
+    protected static int p = 1117; // Большое простое число
+    protected static int q = findPrimeUnder(p);
+    protected int g = findPrimitiveRoot(); // g первообразный корень mod p
     protected ArrayList<Double> r;
-    protected static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
+    public static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
     public static Polynom polynom;
+    public static TreeMap<Integer, Integer> primes;
 
     public void startMethod() {
+        getPRoot();
         System.out.println("p = " + p + ", q = " + q + ", g = " + g);
         System.out.println("n = " + n + ", k = " + k + ", secret = " + secret + "\n");
         generateRandomPolynom();
         generateR();
         generateKeys();
         showAllKeys();
+        System.out.println("BaseOfOrd = " + findBaseOfOrd(q));
+        System.out.println("g^q = " + Math.pow(g,q)%p + " = 1 ?");
 
-//        while (true) {
-//            double test1 = sc.nextDouble();
-//            lagrangeFunc(test1);
-//            double test2 = sc.nextDouble();
-//            Point qwe = new Point(test1,test2);
-//            System.out.println(qwe);
-//            System.out.println(testKey(qwe));
-//        }
+        while (true) {
+            double test1 = sc.nextDouble();
+      //      lagrangeFunc(test1);
+            double test2 = sc.nextDouble();
+            Point qwe = new Point(test1,test2);
+            System.out.println(qwe);
+            System.out.println(testKey(qwe));
+        }
     }
 
-    public static long getPRoot(long p) {
-        for (long i = 0; i < p; i++)
-            if (isPRoot(p, i))
-                return i;
-        return 0;
+    public static void getPRoot() {
+        ArrayList<Integer> roots = new ArrayList<>();
+        for (long i = 0; i < p; i++) {
+            if (isPRoot(i))
+                roots.add((int) i);
+        }
+        System.out.println("Корни через getPRoot: " + roots);
+        for (int el : roots)
+            if (Math.pow(el,q) % p == 1)
+                System.out.println(el + "^q = 1. Имеет порядок q!");
     }
 
-    public static boolean isPRoot(long p, long a) {
+    public static void primeFactors(int a) {
+        primes = new TreeMap<>();
+        if (isPrime(a) && a>2) {
+            a -= 1;
+        }
+        int temp = a;
+        int i = 2;
+        while (i <= Math.sqrt(a) && temp > 1) {
+            if (isPrime(i) && (temp % i == 0)) {
+                if (!primes.containsKey(i))
+                    primes.put(i, 1);
+                else
+                    primes.merge(i, primes.get(i), (prime, count) -> count + 1);
+                temp = temp / i;
+            } else i++;
+        }
+        if (temp != 1)
+            primes.put(temp, 1);
+        System.out.print(a + " = ");
+        primes.forEach((key,value) -> System.out.print(key + "^" + value + " * "));
+        System.out.println();
+    }
+
+    public static int findPrimitiveRoot() {
+        int res = 0;
+        primeFactors(p);
+        ArrayList<Integer> roots = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        primes.forEach((a,b) -> list.add((p-1)/a));
+        list.add((p-1) / 2);
+        int i = 2;
+        while (i < p) {
+            if (isPRoot2(i,list))
+                roots.add(i);
+            i++;
+        }
+        System.out.println("Корни через findPrimitiveRoot: " + roots);
+        for (int el : roots)
+            if (Math.pow(el,q) % p == 1) {
+                res = el;
+                System.out.println(el + "^q = 1. Имеет порядок q!");
+            }
+        return res;
+    }
+
+    public static boolean isPRoot2(int i, ArrayList<Integer> list) {
+        boolean res = true;
+        for (int elem : list) {
+            res &= Math.pow(i, elem) % p != 1;
+        }
+        return res;
+    }
+
+    public static boolean isPRoot(long a) {
         if (a == 0 || a == 1)
             return false;
         long last = 1;
@@ -54,7 +116,7 @@ public class VerifiableSecretSharing {
         return true;
     }
 
-    protected int findPrimeUnder(int p) {
+    public static int findPrimeUnder(int p) {
         ArrayList<Integer> primes = new ArrayList<>();
         for (int i = 2; i < p-1; i++) {
             if (isPrime(i) && ((p-1)%i == 0))
@@ -63,11 +125,7 @@ public class VerifiableSecretSharing {
         return primes.get(primes.size()-1);
     }
 
-    protected int findPrimitiveRoot(int p) {
-        return findBaseOfOrd(p);
-    }
-
-    protected boolean isPrime(int p) {
+    public static boolean isPrime(int p) {
         for (int i=2; i<=p/2; i++) {
             int temp = p % i;
             if (temp == 0) {
@@ -104,11 +162,6 @@ public class VerifiableSecretSharing {
             res1 %= p;
         }
         double res2 = Math.pow(g, point.getY()) %p;
-        res2 = g;
-        for (int i = 0; i < point.getY(); i++) {
-            g *= g;
-            g %= p;
-        }
         return res2 == res1;
     }
 
