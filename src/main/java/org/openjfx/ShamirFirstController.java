@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import SecretShareLogic.SecretSharing;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,10 +50,14 @@ public class ShamirFirstController {
     void initialize() {
 
         generateButton.setOnAction(actionEvent -> {
-//            VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
-//            VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
-//            VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
-//            VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
+            if (!secretField.getText().equals(""))
+                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
+            if (!pField.getText().equals(""))
+                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
+            if (!nField.getText().equals(""))
+                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
+            if (!kField.getText().equals(""))
+                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
             VerifiableSecretSharing.startMethod();
             try {
                 App.setRoot("shamirSecondPage");

@@ -1,5 +1,8 @@
 package SecretShareLogic;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Point {
 
     public Double x;

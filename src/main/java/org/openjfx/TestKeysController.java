@@ -1,10 +1,5 @@
 package org.openjfx;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import SecretShareLogic.Main;
 import SecretShareLogic.Point;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
@@ -12,11 +7,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class ShamirSecondController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class TestKeysController {
 
     @FXML
     private ResourceBundle resources;
@@ -96,7 +97,6 @@ public class ShamirSecondController {
 
     public void buildChart() {
         XYChart.Series<Double, Double> keysSeries = new XYChart.Series<>();
-        polynomXY.legendVisibleProperty().setValue(false);
         for(Point p : VerifiableSecretSharing.xyKey)
             keysSeries.getData().add(new XYChart.Data<>(p.getX(),p.getY()));
         polynomXY.getData().addAll(keysSeries);

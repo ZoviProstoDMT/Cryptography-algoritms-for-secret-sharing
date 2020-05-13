@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirSecondController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.TestKeysController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label layoutX="86.0" layoutY="394.0" opacity="0.7" prefHeight="22.0" prefWidth="175.0" stylesheets="@styles.css" text="Доли секрета - пары (x,y)">
+            <Label layoutX="86.0" layoutY="404.0" opacity="0.7" prefHeight="22.0" prefWidth="175.0" stylesheets="@styles.css" text="Доли секрета - пары (x,y)">
                <font>
                   <Font size="15.0" />
                </font>
@@ -68,7 +68,7 @@
                   <Font size="22.0" />
                </font>
             </Text>
-            <ListView fx:id="keyList" layoutX="81.0" layoutY="152.0" prefHeight="238.0" prefWidth="186.0" />
+            <ListView fx:id="keyList" layoutX="81.0" layoutY="152.0" prefHeight="252.0" prefWidth="186.0" />
             <Button fx:id="lagrangeFuncBtn" layoutX="374.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" stylesheets="@styles.css" text="ПОЛИНОМ ЛАГРАНЖА" />
          </children></AnchorPane>
       <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0" styleClass="button-close" stylesheets="@styles.css">
