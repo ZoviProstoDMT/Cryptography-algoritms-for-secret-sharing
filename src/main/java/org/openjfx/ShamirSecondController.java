@@ -49,7 +49,7 @@ public class ShamirSecondController {
 
     @FXML
     void initialize() {
-        verifiableSecretSharing.startMethod();
+
         polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString());
 
         ObservableList<Point> keys = FXCollections.observableArrayList(VerifiableSecretSharing.xyKey);
