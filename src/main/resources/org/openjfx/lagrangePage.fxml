@@ -48,7 +48,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text layoutX="195.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Восстановление многочлена по известным ключам" textAlignment="CENTER">
+            <Text layoutX="75.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Восстановление многочлена и его значения в точке по известным ключам" textAlignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>

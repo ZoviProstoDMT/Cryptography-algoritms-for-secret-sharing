@@ -4,12 +4,12 @@ import java.util.*;
 
 public class VerifiableSecretSharing {
     static Scanner sc = new Scanner(System.in);
-    protected static int secret = 6;
-    protected static int p = 953; // Большое простое число
-    public static int q = findPrimeUnder(p);
-    protected static int n = q-2; // Число частей ключа
-    protected static int k = n/4; // Минимальный порог для восстановления ключа
-    protected static int g = findBaseOfOrd(); // g первообразный корень mod p
+    protected static int secret;
+    public static int p; // Большое простое число
+    public static int q;
+    protected static int n; // Число частей ключа
+    protected static int k; // Минимальный порог для восстановления ключа
+    public static int g; // g первообразный корень mod p
     protected static ArrayList<Double> r;
     public static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
     public static Polynom polynom;
@@ -146,7 +146,7 @@ public class VerifiableSecretSharing {
     public static boolean testKey(Point point) {
         double res1 = r.get(0);
         for (int i = 1; i < r.size(); i++) {
-            res1 *= powP(r.get(i), (powP(point.getX(),i)));
+              res1 *= powP(r.get(i), (powP(point.getX(),i)));
             res1 %= p;
         }
         double res2 = powP(g, point.getY());
@@ -169,7 +169,7 @@ public class VerifiableSecretSharing {
         return ord;
     }
 
-    protected static int findBaseOfOrd() {
+    public static int findBaseOfOrd() {
         int res;
         for (int i = 2; i < p; i++) {
             double temp = powP(i,q);
@@ -230,7 +230,6 @@ public class VerifiableSecretSharing {
     }
 
     public static double lagrangeFunc(double x, ArrayList<Point> points) {
-        x %= x;
         System.out.print("Выбранные точки: ");
         for (Point p : points) {
             System.out.print(p + " ");

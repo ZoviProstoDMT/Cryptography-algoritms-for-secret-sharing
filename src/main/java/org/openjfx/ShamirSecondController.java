@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import SecretShareLogic.Main;
 import SecretShareLogic.Point;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
@@ -17,12 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ShamirSecondController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button closeBtn;

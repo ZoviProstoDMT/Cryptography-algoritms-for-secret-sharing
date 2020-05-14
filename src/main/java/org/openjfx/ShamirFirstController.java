@@ -48,31 +48,28 @@ public class ShamirFirstController {
         mainTextArea.editableProperty().setValue(false);
 
         generateButton.setOnAction(actionEvent -> {
-            VerifiableSecretSharing.startMethod();
-            try {
-                App.setRoot("shamirSecondPage");
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!secretField.getText().equals("") && !pField.getText().equals("") &&
+                    !nField.getText().equals("") && !kField.getText().equals("")) {
+                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
+                VerifiableSecretSharing.primeFactors(VerifiableSecretSharing.p);
+                VerifiableSecretSharing.q = VerifiableSecretSharing.findPrimeUnder(VerifiableSecretSharing.p);
+                VerifiableSecretSharing.g = VerifiableSecretSharing.findBaseOfOrd();
+                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
+                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
+                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
+                VerifiableSecretSharing.startMethod();
+                try {
+                    App.setRoot("shamirSecondPage");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-//            if (!secretField.getText().equals("") && !pField.getText().equals("") &&
-//                    !nField.getText().equals("") && !kField.getText().equals("")) {
-//                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
-//                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
-//                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
-//                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
-//                VerifiableSecretSharing.startMethod();
-//                try {
-//                    App.setRoot("shamirSecondPage");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            else {
-//                shakeAnimation(secretField);
-//                shakeAnimation(pField);
-//                shakeAnimation(nField);
-//                shakeAnimation(kField);
-//            }
+            else {
+                shakeAnimation(secretField);
+                shakeAnimation(pField);
+                shakeAnimation(nField);
+                shakeAnimation(kField);
+            }
         });
 
         closeBtn.setOnAction(actionEvent -> {
