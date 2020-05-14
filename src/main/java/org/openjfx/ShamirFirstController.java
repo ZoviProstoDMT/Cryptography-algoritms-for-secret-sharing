@@ -1,29 +1,22 @@
 package org.openjfx;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.openjfx.animations.Shake;
+
+import java.io.IOException;
 
 public class ShamirFirstController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button closeBtn;
 
-    @FXML
-    private ImageView backBtnIcon1;
 
     @FXML
     private Button generateButton;
@@ -44,26 +37,42 @@ public class ShamirFirstController {
     private Button minimizeBtn;
 
     @FXML
-    private ImageView backBtnIcon11;
+    private TextArea mainTextArea;
+
+    @FXML
+    private ImageView depositBtn;
 
     @FXML
     void initialize() {
 
+        mainTextArea.editableProperty().setValue(false);
+
         generateButton.setOnAction(actionEvent -> {
-            if (!secretField.getText().equals(""))
-                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
-            if (!pField.getText().equals(""))
-                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
-            if (!nField.getText().equals(""))
-                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
-            if (!kField.getText().equals(""))
-                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
             VerifiableSecretSharing.startMethod();
             try {
                 App.setRoot("shamirSecondPage");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//            if (!secretField.getText().equals("") && !pField.getText().equals("") &&
+//                    !nField.getText().equals("") && !kField.getText().equals("")) {
+//                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
+//                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
+//                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
+//                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
+//                VerifiableSecretSharing.startMethod();
+//                try {
+//                    App.setRoot("shamirSecondPage");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            else {
+//                shakeAnimation(secretField);
+//                shakeAnimation(pField);
+//                shakeAnimation(nField);
+//                shakeAnimation(kField);
+//            }
         });
 
         closeBtn.setOnAction(actionEvent -> {
@@ -76,5 +85,18 @@ public class ShamirFirstController {
             stage.setIconified(true);
         });
 
+        depositBtn.setOnMouseClicked(event -> {
+            mainTextArea.setText("\n\n\t\t\t\t\t\tDeveloped by Dmitriy Kozikov. © 2020\n\t\t\t\t\t\t\t\t\t    -\n\t\t\t\t\t\t  GitHub: github.com/ZoviProstoDMT\n");
+        });
+    }
+
+    public void shakeAnimation(TextField textField) {
+        if (textField.getText().equals("")) {
+            new Shake(textField);
+            textField.setStyle("-fx-border-color: red");
+        }
+        else
+            textField.setStyle("-fx-border-color: linear-gradient(to top, rgba(220, 90, 90, 0.5), rgba(26, 72, 172, 0.5));");
     }
 }
+

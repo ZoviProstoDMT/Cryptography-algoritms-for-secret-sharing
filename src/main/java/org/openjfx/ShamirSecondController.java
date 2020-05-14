@@ -62,7 +62,8 @@ public class ShamirSecondController {
 
     @FXML
     void initialize() {
-        polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString());
+        polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString()
+                + "    (mod " + VerifiableSecretSharing.q + ")");
         buildData();
         buildChart();
 
@@ -83,6 +84,14 @@ public class ShamirSecondController {
                 e.printStackTrace();
             }
         });
+
+        testKeysBtn.setOnAction(actionEvent -> {
+            try {
+                App.setRoot("testKeyPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void buildData() {
@@ -90,7 +99,6 @@ public class ShamirSecondController {
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
             tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
         }
-        System.out.println(tableList);
         keyList.setItems(tableList);
     }
 

@@ -6,7 +6,7 @@ public class VerifiableSecretSharing {
     static Scanner sc = new Scanner(System.in);
     protected static int secret = 6;
     protected static int p = 953; // Большое простое число
-    protected static int q = findPrimeUnder(p);
+    public static int q = findPrimeUnder(p);
     protected static int n = q-2; // Число частей ключа
     protected static int k = n/4; // Минимальный порог для восстановления ключа
     protected static int g = findBaseOfOrd(); // g первообразный корень mod p
@@ -143,7 +143,7 @@ public class VerifiableSecretSharing {
         return res1 == res2;
     }
 
-    protected boolean testKey(Point point) {
+    public static boolean testKey(Point point) {
         double res1 = r.get(0);
         for (int i = 1; i < r.size(); i++) {
             res1 *= powP(r.get(i), (powP(point.getX(),i)));

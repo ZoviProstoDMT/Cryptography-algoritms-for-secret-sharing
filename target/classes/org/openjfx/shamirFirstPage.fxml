@@ -18,9 +18,9 @@
          </image>
       </ImageView>
       <AnchorPane prefHeight="99.0" prefWidth="900.0" styleClass="header" stylesheets="@styles.css" />
-      <Button fx:id="closeBtn" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0" styleClass="button-close" stylesheets="@styles.css">
+      <Button fx:id="closeBtn" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="35.0" styleClass="close-button" stylesheets="@styles.css">
          <graphic>
-            <ImageView fx:id="backBtnIcon1" fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+            <ImageView fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
                <image>
                   <Image url="@../../img/close.png" />
                </image>
@@ -71,32 +71,32 @@
                   <TextField fx:id="nField" layoutX="28.0" layoutY="71.0" prefHeight="30.0" prefWidth="202.0" promptText="N" styleClass="rainbow-border" stylesheets="@styles.css" />
                </children>
             </AnchorPane>
-            <TextArea layoutX="43.0" layoutY="247.0" prefHeight="166.0" prefWidth="808.0" text="Описание схемы:&#10;&#10;Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме &#10;Шамира и является (k, n)–пороговой, где n — количество долей, на которые был &#10;разделен секрет, k — количество долей, которые требуются для получения секрета. &#10;Таким образом,восстановить секрет возможно при наличие любых k и более долей.">
+            <TextArea fx:id="mainTextArea" layoutX="43.0" layoutY="247.0" prefHeight="166.0" prefWidth="808.0" text="Описание схемы:&#10;&#10;Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме &#10;Шамира и является (k, n)–пороговой, где n — количество долей, на которые был &#10;разделен секрет, k — количество долей, которые требуются для получения секрета. &#10;Таким образом,восстановить секрет возможно при наличие любых k и более долей.">
                <font>
                   <Font size="15.0" />
                </font>
             </TextArea>
-            <ImageView fitHeight="166.0" fitWidth="201.0" layoutX="644.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="depositBtn" fitHeight="166.0" fitWidth="201.0" layoutX="644.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true" styleClass="secret-button">
                <image>
                   <Image url="@../../img/deposit.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
-      <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0" styleClass="button-close" stylesheets="@styles.css">
+      <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0" styleClass="close-button" stylesheets="@styles.css">
          <graphic>
-            <ImageView fx:id="backBtnIcon11" fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+            <ImageView fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
                <image>
                   <Image url="@../../img/minimize.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="257.0" layoutY="11.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css" text="Схема разделения секрета">
+      <Label layoutX="257.0" layoutY="8.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css" text="Схема разделения секрета">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label layoutX="180.0" layoutY="34.0" prefHeight="66.0" prefWidth="538.0" styleClass="name" stylesheets="@styles.css" text="ФЕЛЬДМАНА-ШАМИРА">
+      <Label layoutX="180.0" layoutY="31.0" prefHeight="66.0" prefWidth="538.0" styleClass="name" stylesheets="@styles.css" text="ФЕЛЬДМАНА-ШАМИРА">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>

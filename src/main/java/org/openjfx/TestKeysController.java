@@ -2,40 +2,31 @@ package org.openjfx;
 
 import SecretShareLogic.Point;
 import SecretShareLogic.VerifiableSecretSharing;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.openjfx.animations.Shake;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Arrays;
 
 public class TestKeysController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
+    private Button minimizeBtn;
 
     @FXML
     private Button closeBtn;
 
     @FXML
-    private ImageView backBtnIcon1;
-
-    @FXML
     private Button generateSecret;
-
-    @FXML
-    private Label polynomField;
 
     @FXML
     private Button backBtn;
@@ -44,28 +35,36 @@ public class TestKeysController {
     private ImageView backBtnIcon;
 
     @FXML
-    private LineChart<Double, Double> polynomXY;
-
-    @FXML
-    private Button testKeysBtn;
-
-    @FXML
     private ListView<String> keyList;
 
     @FXML
     private Button lagrangeFuncBtn;
 
     @FXML
-    private Button minimizeBtn;
+    private ImageView checkBtn;
 
     @FXML
-    private ImageView backBtnIcon11;
+    private AnchorPane choosenKeyField;
+
+    @FXML
+    private Label choosenKey;
+
+    @FXML
+    private Text positiveRes;
+
+    @FXML
+    private Text negativeRes;
+
+    @FXML
+    private TextField keyInput;
 
     @FXML
     void initialize() {
-        polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString());
         buildData();
-        buildChart();
+
+        checkBtn.setOnMouseClicked(event -> {
+            showResult();
+        });
 
         closeBtn.setOnAction(actionEvent -> {
             Stage stage = (Stage) closeBtn.getScene().getWindow();
@@ -79,7 +78,7 @@ public class TestKeysController {
 
         backBtn.setOnAction(actionEvent -> {
             try {
-                App.setRoot("shamirFirstPage");
+                App.setRoot("shamirSecondPage");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,14 +90,42 @@ public class TestKeysController {
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
             tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
         }
-        System.out.println(tableList);
         keyList.setItems(tableList);
     }
 
-    public void buildChart() {
-        XYChart.Series<Double, Double> keysSeries = new XYChart.Series<>();
-        for(Point p : VerifiableSecretSharing.xyKey)
-            keysSeries.getData().add(new XYChart.Data<>(p.getX(),p.getY()));
-        polynomXY.getData().addAll(keysSeries);
+    public void showResult() {
+        MultipleSelectionModel<String> keysSelectionModel = keyList.getSelectionModel();
+        if (keyInput.getText().equals("") && keysSelectionModel.getSelectedItems().isEmpty()) {
+            new Shake(keyList);
+            new Shake(keyInput);
+        }
+        else {
+            if (keyInput.getText().equals("")) {
+                String[] str = keysSelectionModel.getSelectedItems().toString().trim().split("\\D+");
+                double x = Double.parseDouble(str[1]);
+                double y = Double.parseDouble(str[3]);
+                testKeyResult(x, y);
+            }
+            else {
+                String[] str = keyInput.getText().trim().split("\\D+");
+                double x = Double.parseDouble(str[0]);
+                double y = Double.parseDouble(str[1]);
+                testKeyResult(x, y);
+            }
+        }
+    }
+
+    public void testKeyResult(double x, double y) {
+        Point point = new Point(x, y);
+        choosenKey.setText(point.toString());
+        if (VerifiableSecretSharing.testKey(point)) {
+            choosenKeyField.setStyle("-fx-border-color: linear-gradient(to bottom, lawngreen, green)");
+            negativeRes.setStyle("-fx-opacity: 0");
+            positiveRes.setStyle("-fx-opacity: 1");
+        } else {
+            choosenKeyField.setStyle("-fx-border-color: linear-gradient(to bottom, red, darkred)");
+            positiveRes.setStyle("-fx-opacity: 0");
+            negativeRes.setStyle("-fx-opacity: 1");
+        }
     }
 }

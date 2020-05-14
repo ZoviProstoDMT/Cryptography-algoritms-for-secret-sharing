@@ -16,10 +16,6 @@
     -fx-text-fill: white;
 }
 
-.list-cell:even {
-    -fx-background-color: white;
-}
-
 .list-cell:filled:hover {
     -fx-background-color: linear-gradient(to left, rgba(220, 90, 90, 0.5), rgba(26, 72, 172, 0.5));
 
@@ -66,7 +62,42 @@
     -fx-opacity: 0.75;
 }
 
-.button-close {
+.secret-button {
+    -fx-opacity: 0.90;
+}
+
+.secret-button:hover {
+    -fx-scale-y: 1.01;
+    -fx-scale-x: 1.01;
+    -fx-opacity: 1;
+}
+
+.secret-button:pressed {
+    -fx-scale-y: 1;
+    -fx-scale-x: 1;
+}
+
+.check-button {
+    -fx-border-color: linear-gradient(to top, #dc5a5a, #1a48ac);
+    -fx-background-color: #eaeaea;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-opacity: 0.85;
+}
+
+.check-button:hover {
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+    -fx-animated: true, 1.5s;
+    -fx-opacity: 1;
+}
+
+.check-button:pressed {
+    -fx-scale-y: 1;
+    -fx-scale-x: 1;
+}
+
+.close-button {
     -fx-border-color: linear-gradient(to top, #dc5a5a, #1a48ac);
     -fx-border-radius: 8;
     -fx-border-width: 2;
