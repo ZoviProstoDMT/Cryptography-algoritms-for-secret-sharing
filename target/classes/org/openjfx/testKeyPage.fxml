@@ -55,12 +55,12 @@
             </Text>
             <ListView fx:id="keyList" layoutX="114.0" layoutY="104.0" prefHeight="226.0" prefWidth="175.0" />
             <Button fx:id="lagrangeFuncBtn" layoutX="543.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" stylesheets="@styles.css" text="ПОЛИНОМ ЛАГРАНЖА" />
-            <ImageView fx:id="checkBtn" accessibleRole="BUTTON" fitHeight="111.0" fitWidth="108.0" layoutX="396.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" styleClass="check-button">
+            <ImageView fitHeight="350.0" fitWidth="350.0" layoutX="330.0" layoutY="70.0" opacity="0.05" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/checkKey.png" />
+                  <Image url="@../../img/Arrows.png" />
                </image>
             </ImageView>
-            <TextField fx:id="keyInput" layoutX="114.0" layoutY="368.0" prefHeight="46.0" prefWidth="175.0" promptText="X, Y">
+            <TextField fx:id="keyInput" layoutX="114.0" layoutY="358.0" prefHeight="46.0" prefWidth="175.0" promptText="X, Y">
                <font>
                   <Font size="20.0" />
                </font>
@@ -70,12 +70,12 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="113.0" layoutY="346.0" opacity="0.7" prefHeight="22.0" prefWidth="175.0" stylesheets="@styles.css" text="Или введите свой">
+            <Label layoutX="114.0" layoutY="404.0" opacity="0.7" prefHeight="22.0" prefWidth="175.0" stylesheets="@styles.css" text="Или введите свой">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <AnchorPane fx:id="choosenKeyField" layoutX="591.0" layoutY="224.0" prefHeight="54.0" prefWidth="204.0" styleClass="rainbow-border">
+            <AnchorPane fx:id="choosenKeyField" layoutX="611.0" layoutY="218.0" prefHeight="54.0" prefWidth="204.0" styleClass="rainbow-border">
                <children>
                   <Label fx:id="choosenKey" layoutX="16.0" layoutY="8.0" opacity="0.7" prefHeight="38.0" prefWidth="175.0" stylesheets="@styles.css" text="(x, y)" textAlignment="CENTER">
                      <font>
@@ -84,16 +84,30 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Text fx:id="positiveRes" fill="#26ff0099" layoutX="370.0" layoutY="360.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUCCESS!" textAlignment="CENTER" wrappingWidth="159.9999999999999">
+            <Text fx:id="positiveRes" fill="#26ff0099" layoutX="633.0" layoutY="310.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUCCESS!" textAlignment="CENTER" wrappingWidth="159.9999999999999">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>
             </Text>
-            <Text fx:id="negativeRes" fill="#ff000099" layoutX="341.0" layoutY="360.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNSUCCESS!" textAlignment="CENTER" wrappingWidth="215.20001220703114">
+            <Text fx:id="negativeRes" fill="#ff000099" layoutX="605.0" layoutY="310.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNSUCCESS!" textAlignment="CENTER" wrappingWidth="215.20001220703114">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>
             </Text>
+            <AnchorPane layoutX="289.0" layoutY="104.0" prefHeight="299.0" prefWidth="322.0" styleClass="decoration">
+               <children>
+                  <ImageView fitHeight="215.0" fitWidth="215.0" layoutX="54.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.75;">
+                     <image>
+                        <Image url="@../../img/checKeyBackground.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="checkBtn" accessibleRole="BUTTON" fitHeight="99.0" fitWidth="96.0" layoutX="114.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" styleClass="check-button">
+                     <image>
+                        <Image url="@../../img/checkKey.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
       <Label layoutX="257.0" layoutY="8.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css" text="Схема разделения секрета">
          <font>

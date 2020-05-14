@@ -13,8 +13,9 @@ import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class TestKeysController {
+public class DecryptSecretController {
 
     @FXML
     private Button minimizeBtn;
@@ -23,7 +24,7 @@ public class TestKeysController {
     private Button closeBtn;
 
     @FXML
-    private Button generateSecret;
+    private Button testKeyBtn;
 
     @FXML
     private Button backBtn;
@@ -38,37 +39,28 @@ public class TestKeysController {
     private Button lagrangeFuncBtn;
 
     @FXML
-    private TextField keyInput;
-
-    @FXML
-    private AnchorPane choosenKeyField;
-
-    @FXML
-    private Label choosenKey;
-
-    @FXML
-    private Text positiveRes;
-
-    @FXML
-    private Text negativeRes;
-
-    @FXML
     private ImageView checkBtn;
 
     @FXML
+    private AnchorPane secretResField;
+
+    @FXML
+    private Label secretRes;
+
+    @FXML
+    private Text textInfo;
+
+    @FXML
+    private ListView<String> keyList2;
+
+    @FXML
     void initialize() {
+        keyList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        textInfo.setText("необходимо выбрать " + VerifiableSecretSharing.getK() +" ключей");
         buildData();
 
         checkBtn.setOnMouseClicked(event -> {
-            showResult();
-        });
-
-        generateSecret.setOnAction(actionEvent -> {
-            try {
-                App.setRoot("decryptSecretPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            showSecretResult();
         });
 
         closeBtn.setOnAction(actionEvent -> {
@@ -97,9 +89,9 @@ public class TestKeysController {
             }
         });
 
-        generateSecret.setOnAction(actionEvent -> {
+        testKeyBtn.setOnAction(actionEvent -> {
             try {
-                App.setRoot("decryptSecretPage");
+                App.setRoot("testKeyPage");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -114,41 +106,31 @@ public class TestKeysController {
         keyList.setItems(tableList);
     }
 
-    public void showResult() {
+    public void showSecretResult() {
         MultipleSelectionModel<String> keysSelectionModel = keyList.getSelectionModel();
-        if (keyInput.getText().equals("") && keysSelectionModel.getSelectedItems().isEmpty()) {
-            new Shake(keyList);
-            new Shake(keyInput);
-        }
-        else {
-            if (keyInput.getText().equals("")) {
-                String[] str = keysSelectionModel.getSelectedItems().toString().trim().split("\\D+");
+        ArrayList<Point> points = new ArrayList<>();
+        try {
+            for (int i = 0; i < VerifiableSecretSharing.getK(); i++) {
+                String[] str = keysSelectionModel.getSelectedItems().get(i).trim().split("\\D+");
                 double x = Double.parseDouble(str[1]);
                 double y = Double.parseDouble(str[3]);
-                testKeyResult(x, y);
+                points.add(new Point(x, y));
             }
-            else {
-                String[] str = keyInput.getText().trim().split("\\D+");
-                double x = Double.parseDouble(str[0]);
-                double y = Double.parseDouble(str[1]);
-                testKeyResult(x, y);
-            }
+        } catch (Exception e) {
+            new Shake(keyList);
         }
-        keyInput.setText("");
-        keysSelectionModel.clearSelection();
-    }
+        if (points.size() < VerifiableSecretSharing.getK()) {
+            new Shake(keyList);
+        }
+        else {
+            ObservableList<String> tableList = FXCollections.observableArrayList();
+            for (Point point : points) {
+                tableList.add("                " + point.toString());
+            }
+            keyList2.setItems(tableList);
 
-    public void testKeyResult(double x, double y) {
-        Point point = new Point(x, y);
-        choosenKey.setText(point.toString());
-        if (VerifiableSecretSharing.testKey(point)) {
-            choosenKeyField.setStyle("-fx-border-color: linear-gradient(to bottom, lawngreen, green)");
-            negativeRes.setStyle("-fx-opacity: 0");
-            positiveRes.setStyle("-fx-opacity: 0.5");
-        } else {
-            choosenKeyField.setStyle("-fx-border-color: linear-gradient(to bottom, red, darkred)");
-            positiveRes.setStyle("-fx-opacity: 0");
-            negativeRes.setStyle("-fx-opacity: 0.5");
+            secretRes.setText(String.valueOf(VerifiableSecretSharing.lagrangeFunc(0, points)));
+            keysSelectionModel.clearSelection();
         }
     }
 }

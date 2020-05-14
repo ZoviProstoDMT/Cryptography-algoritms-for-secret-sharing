@@ -67,6 +67,22 @@ public class ShamirSecondController {
         buildData();
         buildChart();
 
+        generateSecret.setOnAction(actionEvent -> {
+            try {
+                App.setRoot("decryptSecretPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        lagrangeFuncBtn.setOnAction(actionEvent -> {
+            try {
+                App.setRoot("lagrangePage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         closeBtn.setOnAction(actionEvent -> {
             Stage stage = (Stage) closeBtn.getScene().getWindow();
             stage.close();

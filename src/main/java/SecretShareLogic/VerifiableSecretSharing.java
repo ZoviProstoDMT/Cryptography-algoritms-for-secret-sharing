@@ -229,17 +229,8 @@ public class VerifiableSecretSharing {
         System.out.println();
     }
 
-    protected static double lagrangeFunc(double x) {
-        ArrayList<Point> points = new ArrayList<>(); // Выбранные точки для расшифровки секрета
-        if (x == 0)
-            System.out.println("Выпишете через пробел k = " + k + " ключей, по которым будет восстановлен секрет: ");
-        else
-            System.out.println("Выпишете через пробел k = " + k + " ключей, по которым будет восстановлено значение для Х = " + x);
-
-        for (int i = 0; i < k; i++) {
-            int num = sc.nextInt();
-            points.add(xyKey.get(num - 1));
-        }
+    public static double lagrangeFunc(double x, ArrayList<Point> points) {
+        x %= x;
         System.out.print("Выбранные точки: ");
         for (Point p : points) {
             System.out.print(p + " ");

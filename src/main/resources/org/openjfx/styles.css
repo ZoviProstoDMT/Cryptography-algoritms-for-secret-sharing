@@ -9,8 +9,6 @@
     -fx-alignment: CENTER
 }
 
-
-
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     -fx-background-color: rgba(26, 72, 172, 0.5);
     -fx-text-fill: white;
@@ -26,8 +24,17 @@
     -fx-text-fill: radial-gradient(radius 50% , #000000, #393939);
 }
 
+.decoration {
+    -fx-opacity: 0.8;
+}
+
+.decoration:hover {
+    -fx-opacity: 1;
+}
+
 .list-view {
     -fx-alignment: CENTER;
+    -fx-border-color: linear-gradient(to top, rgba(220, 90, 90, 0.5), rgba(26, 72, 172, 0.5));
 }
 
 .rainbow-border {
@@ -86,15 +93,15 @@
 }
 
 .check-button:hover {
-    -fx-scale-y: 1.05;
-    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.03;
+    -fx-scale-x: 1.03;
     -fx-animated: true, 1.5s;
-    -fx-opacity: 1;
 }
 
 .check-button:pressed {
     -fx-scale-y: 1;
     -fx-scale-x: 1;
+    -fx-opacity: 1;
 }
 
 .close-button {

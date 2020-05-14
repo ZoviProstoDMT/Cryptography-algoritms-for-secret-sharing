@@ -29,7 +29,7 @@
       </Button>
       <AnchorPane layoutY="99.0" prefHeight="502.0" prefWidth="900.0" styleClass="main-page" stylesheets="@styles.css">
          <children>
-            <Button fx:id="generateButton" layoutX="348.0" layoutY="430.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="210.0" stylesheets="@styles.css" text="ВЫЧИСЛИТЬ СЕКРЕТ">
+            <Button fx:id="generateButton" layoutX="348.0" layoutY="430.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="210.0" stylesheets="@styles.css" text="НАЧАТЬ">
                <font>
                   <Font size="15.0" />
                </font></Button>
