@@ -103,7 +103,7 @@
                   </ImageView>
                   <ImageView fx:id="checkBtn" accessibleRole="BUTTON" fitHeight="99.0" fitWidth="96.0" layoutX="114.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" styleClass="check-button">
                      <image>
-                        <Image url="@../../img/checkKey.png" />
+                        <Image url="@../../img/polynomGen.png" />
                      </image>
                   </ImageView>
                </children>

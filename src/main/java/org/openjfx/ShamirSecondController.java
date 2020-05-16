@@ -27,7 +27,7 @@ public class ShamirSecondController {
     private Button generateSecret;
 
     @FXML
-    private Label polynomField;
+    private TextArea polynomField;
 
     @FXML
     private Button backBtn;
@@ -55,7 +55,8 @@ public class ShamirSecondController {
 
     @FXML
     void initialize() {
-        polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString()
+        polynomField.editableProperty().setValue(false);
+        polynomField.setText("f(x) = " + VerifiableSecretSharing.polynom.toString()
                 + "    (mod " + VerifiableSecretSharing.q + ")");
         buildData();
         buildChart();
@@ -106,7 +107,7 @@ public class ShamirSecondController {
     public void buildData() {
         ObservableList<String> tableList = FXCollections.observableArrayList();
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
-            tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
+            tableList.add(VerifiableSecretSharing.xyKey.get(i).toString());
         }
         keyList.setItems(tableList);
     }

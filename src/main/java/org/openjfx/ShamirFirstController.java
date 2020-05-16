@@ -51,9 +51,8 @@ public class ShamirFirstController {
             if (!secretField.getText().equals("") && !pField.getText().equals("") &&
                     !nField.getText().equals("") && !kField.getText().equals("")) {
                 VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
-                VerifiableSecretSharing.primeFactors(VerifiableSecretSharing.p);
                 VerifiableSecretSharing.q = VerifiableSecretSharing.findPrimeUnder(VerifiableSecretSharing.p);
-                VerifiableSecretSharing.g = VerifiableSecretSharing.findBaseOfOrd();
+                VerifiableSecretSharing.g = VerifiableSecretSharing.findBaseOfOrd().get(0);
                 VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
                 VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
                 VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
@@ -83,7 +82,7 @@ public class ShamirFirstController {
         });
 
         depositBtn.setOnMouseClicked(event -> {
-            mainTextArea.setText("\n\n\t\t\t\t\t\tDeveloped by Dmitriy Kozikov. © 2020\n\t\t\t\t\t\t\t\t\t    -\n\t\t\t\t\t\t  GitHub: github.com/ZoviProstoDMT\n");
+            mainTextArea.setText("\n\nDeveloped by Dmitriy Kozikov. © 2020\n-\nGitHub: github.com/ZoviProstoDMT\n");
         });
     }
 

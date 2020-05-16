@@ -71,12 +71,17 @@
                   <TextField fx:id="nField" layoutX="28.0" layoutY="71.0" prefHeight="30.0" prefWidth="202.0" promptText="N" styleClass="rainbow-border" stylesheets="@styles.css" />
                </children>
             </AnchorPane>
-            <TextArea fx:id="mainTextArea" layoutX="43.0" layoutY="247.0" prefHeight="166.0" prefWidth="808.0" text="Описание схемы:&#10;&#10;Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме &#10;Шамира и является (k, n)–пороговой, где n — количество долей, на которые был &#10;разделен секрет, k — количество долей, которые требуются для получения секрета. &#10;Таким образом,восстановить секрет возможно при наличие любых k и более долей.">
+            <TextArea fx:id="mainTextArea" layoutX="45.0" layoutY="247.0" prefHeight="166.0" prefWidth="608.0" text="Описание схемы:&#10;&#10;Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме &#10;Шамира и является (k, n)–пороговой, где n — количество долей, на которые был &#10;разделен секрет, k — количество долей, которые требуются для получения секрета. &#10;Таким образом,восстановить секрет возможно при наличие любых k и более долей.">
                <font>
                   <Font size="15.0" />
                </font>
             </TextArea>
-            <ImageView fx:id="depositBtn" fitHeight="166.0" fitWidth="201.0" layoutX="644.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true" styleClass="secret-button">
+            <TextArea layoutX="664.0" layoutY="247.0" prefHeight="166.0" prefWidth="186.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextArea>
+            <ImageView fx:id="depositBtn" fitHeight="158.0" fitWidth="186.0" layoutX="664.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" styleClass="secret-button">
                <image>
                   <Image url="@../../img/deposit.png" />
                </image>
