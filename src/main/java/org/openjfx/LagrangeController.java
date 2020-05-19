@@ -134,7 +134,7 @@ public class LagrangeController {
                 keyList2.setItems(tableList);
 
                 polynomRes.setText("f(x) = " + VerifiableSecretSharing.polynom.toString()
-                        + "    (mod " + VerifiableSecretSharing.q + ")");
+                        + "    (mod " + VerifiableSecretSharing.p + ")");
                 polynomRes.editableProperty().setValue(false);
                 String[] str = inputX.getText().trim().split("\\D+");
                 yRes.setText("Для Х = " + str[0] + ", Y = " +

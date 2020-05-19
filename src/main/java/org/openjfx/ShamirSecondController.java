@@ -57,7 +57,7 @@ public class ShamirSecondController {
     void initialize() {
         polynomField.editableProperty().setValue(false);
         polynomField.setText("f(x) = " + VerifiableSecretSharing.polynom.toString()
-                + "    (mod " + VerifiableSecretSharing.q + ")");
+                + "    (mod " + VerifiableSecretSharing.p + ")");
         buildData();
         buildChart();
 

@@ -3,31 +3,39 @@ package SecretShareLogic;
 import java.util.*;
 
 public class VerifiableSecretSharing {
-    protected static int secret = 22;
-    public static int p = 47; // Большое простое число
-    public static int q = findPrimeUnder(p);
-    protected static int n = 15; // Число частей ключа
-    protected static int k = 4; // Минимальный порог для восстановления ключа
-    public static int g = findBaseOfOrd().get(0); // g первообразный корень mod p
-    protected static ArrayList<Double> r;
+    protected static int secret = 2;
+    public static int p = 311; // Большое простое число
+    protected static int n = 300; // Число частей ключа
+    protected static int k = 6; // Минимальный порог для восстановления ключа
+    public static double g = getPRoot().get(0); // g первообразный корень mod p
+    public static ArrayList<Double> r = new ArrayList<>();
     public static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
     public static Polynom polynom;
 
     public static void startMethod() {
-        System.out.println("p = " + p + ", q = " + q + ", g = " + g);
+        System.out.println("p = " + p + ", g = " + g);
         System.out.println("n = " + n + ", k = " + k + ", secret = " + secret + "\n");
         showPrimeFactors();
         generateRandomPolynom();
-        generateR();
-        generateKeys();
+        generateRandKeys(false);
+        showR();
         showAllKeys();
-        System.out.println("getPRoots, все первообразные корни P: " + getPRoot());
-        System.out.println("findPrimR, все первообразные корни P: " + findPrimitiveRoot());
-        System.out.println("findBaseOfOrd, все числа порядка Q: " + findBaseOfOrd());
-        System.out.print("Порядок элементов: ");
+/*        КОД ДЛЯ ТЕСТОВ
+        System.out.println("getPRoots, все первообразные корни (mod "+ p +"): " + getPRoot());
+        System.out.println("findPrimR, все первообразные корни (mod "+ p +"): " + findPrimitiveRoot());
+        System.out.print("Порядок элементов getPRoots: ");
         for(int el : getPRoot()) {
-            System.out.print(el + "(" + findOrd(el) + ") ");
+            System.out.print(el + "(" + findOrdP(el) + ") ");
         }
+        System.out.println();
+        System.out.print("Порядок элементов findPrimR: ");
+        for(int el : findPrimitiveRoot()) {
+            System.out.print(el + "(" + findOrdP(el) + ") ");
+        }
+        System.out.println();
+        System.out.println(); */
+        for(Point p : xyKey)
+            System.out.print(testKey(p) + " ");
         System.out.println();
     }
 
@@ -37,7 +45,7 @@ public class VerifiableSecretSharing {
             if (isPRoot(i))
                 roots.add((int) i);
         }
-            return roots;
+        return roots;
     }
 
     public static TreeMap<Integer, Integer> findPrimeFactors(int a) {
@@ -62,8 +70,9 @@ public class VerifiableSecretSharing {
     }
 
     public static void showPrimeFactors() {
-        System.out.print(p + " = ");
+        System.out.print(p-1 + " = ");
         findPrimeFactors(p).forEach((key,value) -> System.out.print(key + "^" + value + " * "));
+        System.out.println();
         System.out.println();
     }
 
@@ -83,7 +92,8 @@ public class VerifiableSecretSharing {
     public static boolean isPRoot2(int i, ArrayList<Integer> list) {
         boolean res = true;
         for (int elem : list) {
-            res &= powP(i, elem) != 1;
+            boolean temp = powP(i, elem) != 1;
+            res &= temp;
         }
         return res;
     }
@@ -123,29 +133,35 @@ public class VerifiableSecretSharing {
     }
 
     protected static void generateR() {
-        r = new ArrayList<>();
-        for (int i = 0; i < k; i++) {
-            double temp = powP(g,polynom.coefficients.get(i));
+        for (int i = 0; i < polynom.coefficients.size(); i++) {
+            double temp = powP(g, polynom.coefficients.get(i));
             r.add(temp);
-            if (i == k-1)
-                System.out.print("r" + i + " = " + temp + ".");
-            else
-                System.out.print("r" + i + " = " + temp + ", ");
         }
+    }
+
+    protected static void showR() {
+        generateR();
+        for (int i = 0; i < r.size(); i++) {
+        if (i == k-1)
+            System.out.print("r" + i + " = " + r.get(i) + ".");
+        else
+            System.out.print("r" + i + " = " + r.get(i) + ", ");
+    }
         System.out.println();
         System.out.println();
     }
 
-    protected boolean testSecret(int secret) {
+    protected static boolean testSecret(int secret) {
         double res1 = powP(g,secret);
         double res2 = r.get(0);
         return res1 == res2;
     }
 
     public static boolean testKey(Point point) {
-        double res1 = r.get(0);
-        for (int i = 1; i < r.size(); i++) {
-            res1 *= powP(r.get(i), (powP(point.getX(),i)));
+        double res1 = 1;
+        for (int i = 0; i < r.size(); i++) {
+            double temp = powPMinusOne(point.getX(),i);
+            res1 *= powP(r.get(i),temp);
             res1 %= p;
         }
         double res2 = powP(g, point.getY());
@@ -161,24 +177,25 @@ public class VerifiableSecretSharing {
         return result % p;
     }
 
-    protected static double powQ(double base, double exponent) {
+    protected static double powPMinusOne(double base, double exponent) {
         double result = 1;
         for (int i = 0; i < exponent; i++) {
             result *= base;
-            result %= q;
+            result %= (p - 1);
         }
-        return result % q;
+        return result % (p - 1);
     }
 
-    protected static int findOrd(int a) {
+    protected static int findOrdP(int a) {
         for (int i = 2; i < p; i++) {
             if (powP(a,i) == 1)
                 return i;
         }
-        return 0;
+        return 999999999;
     }
 
-    public static ArrayList<Integer> findBaseOfOrd() {
+
+    public static ArrayList<Integer> findBaseOfOrd(int q) {
         ArrayList<Integer> res = new ArrayList<>();
         for (int i = 2; i < p; i++) {
             double temp = powP(i,q);
@@ -189,33 +206,35 @@ public class VerifiableSecretSharing {
         return res;
     }
 
-    protected static void generateKeys() {
+    public static void generateRandKeys(boolean random) {
         xyKey = new ArrayList<>();
-        Set<Double> set = new TreeSet<>(); // Множество, заполняющееся без повторений
-        while (set.size() != n) {
-            int rand = (int) (Math.random() * (q - 1));
-            if (rand != 0)
-                set.add((double) rand);
-        }
-        for (Double d : set) {
-            Point point = new Point();
-            point.setX(d);
-            xyKey.add(point);
-        }
-        for(Point point : xyKey) {
-            double y = 0;
-            for (int i = 0; i < polynom.coefficients.size(); i++) {
-                if (i == 0) {
-                    int a0 = polynom.coefficients.get(i);
-                    y += a0;
-                }
-                else {
-                    double ax = polynom.coefficients.get(i) * powQ(point.getX(),i);
-                    y += ax;
-                    y %= q;
-                }
+        if (random) {
+            Set<Double> set = new TreeSet<>(); // Множество, заполняющееся без повторений
+            while (set.size() != n) {
+                int rand = (int) (Math.random() * (p - 1));
+                if (rand != 0)
+                    set.add((double) rand);
             }
-            point.setY(y%q);
+            for (Double d : set) {
+                Point point = new Point();
+                point.setX(d);
+                xyKey.add(point);
+            }
+        } else {
+            for (double i = 1; i < n + 1; i++) {
+                Point point = new Point();
+                point.setX(i);
+                xyKey.add(point);
+            }
+            for (Point point : xyKey) {
+                double y = 0;
+                for (int i = 0; i < polynom.coefficients.size(); i++) {
+                    double ax = (polynom.coefficients.get(i) * Math.pow(point.getX(), i));
+                    y += ax;
+                    y %= (p-1);
+                }
+                point.setY(y);
+            }
         }
     }
 
@@ -228,10 +247,9 @@ public class VerifiableSecretSharing {
     }
 
     protected static void generateRandomPolynom() {
-        System.out.print("Сгенерируем случайный полином степени k-1, где k - минимальное число для восстановления секрета:\t");
-        polynom = new Polynom(k,q);
-        polynom.set0Coefficient(secret);
-        System.out.println(polynom + "\t (mod " + q + ")");
+        System.out.print("Полином степени k-1:\t");
+        polynom = new Polynom(k,p);
+        System.out.println(polynom + "\t (mod " + p + ")");
         System.out.println();
         polynom.printCoefficients();
         System.out.println();
@@ -252,17 +270,17 @@ public class VerifiableSecretSharing {
                 if (j != i) {
                     double temp = points.get(i).getX() - points.get(j).getX();
                     while (temp < 0)
-                        temp += q;
+                        temp += p;
                     res *= (x-points.get(j).getX()) * reverseNumber(temp);
-                    res %= q;
+                    res %= p;
                 }
             }
             sum += (res * points.get(i).getY());
-            sum %= q;
+            sum %= p;
             res = 1;
         }
         while (sum < 0)
-            sum += q;
+            sum += p;
 
         if (x == 0)
             System.out.println("Секрет: " + sum);
@@ -275,12 +293,47 @@ public class VerifiableSecretSharing {
     // Поиск обратного числа в поле Fp
     protected static int reverseNumber(double e) {
         double res;
-        for (int i = 1; i < q; i++) {
+        for (int i = 1; i < p; i++) {
             res = ((i * e) - 1);
-            if ((res % q) == 0)
+            if ((res % p) == 0)
                 return i;
         }
         return 0;
+    }
+
+    public static void bigTest() {
+        ArrayList<Integer> newG = new ArrayList<>();
+        for (Point point : xyKey) {
+            for (int gg = 2; gg < p; gg++) {
+                double res1 = powP(gg, point.getY());
+                double res2 = 1;
+                for (int i = 0; i < polynom.coefficients.size(); i++) {
+                    res2 *= powP(gg, powP(polynom.coefficients.get(i), powP(point.getX(),i)));
+                    res2 %= p;
+                }
+                if (res1 == res2)
+                    newG.add(gg);
+            }
+            System.out.println("Key " + point + ": " + newG);
+        }
+    }
+
+    public static void littleTest() {
+        for (int i = 1; i < p; i++) {
+            boolean test = true;
+            System.out.println();
+            g = i;
+            generateR();
+
+            for (Point p : xyKey) {
+                    test &= testKey(p);
+                    System.out.print(testKey(p) + " ");
+                    if (!test)
+                        break;
+                }
+                if (test)
+                    System.out.println("ВСЕ КЛЮЧИ ПОДОШЛИ, i = " + i + ", G = " + i);
+        }
     }
 
     public static int getSecret() {
