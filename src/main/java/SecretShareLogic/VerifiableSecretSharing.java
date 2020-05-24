@@ -4,9 +4,9 @@ import java.util.*;
 
 public class VerifiableSecretSharing {
     protected static int secret = 2;
-    public static int p = 311; // Большое простое число
-    protected static int n = 300; // Число частей ключа
-    protected static int k = 6; // Минимальный порог для восстановления ключа
+    public static int p = 13; // Большое простое число
+    protected static int n = 12; // Число частей ключа
+    protected static int k = 5; // Минимальный порог для восстановления ключа
     public static double g = getPRoot().get(0); // g первообразный корень mod p
     public static ArrayList<Double> r = new ArrayList<>();
     public static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
@@ -34,9 +34,11 @@ public class VerifiableSecretSharing {
         }
         System.out.println();
         System.out.println(); */
-        for(Point p : xyKey)
-            System.out.print(testKey(p) + " ");
-        System.out.println();
+        lagrangeFunc(0,xyKey);
+        lagrangeFunc(1,xyKey);
+        lagrangeFunc(2,xyKey);
+        testAllKeys(xyKey);
+        testLagrangeFunc(xyKey);
     }
 
     public static ArrayList<Integer> getPRoot() {
@@ -115,7 +117,7 @@ public class VerifiableSecretSharing {
 
     public static int findPrimeUnder(int p) {
         ArrayList<Integer> primes = new ArrayList<>();
-        for (int i = 2; i < p-1; i++) {
+        for (int i = 2; i < (p-1); i++) {
             if (isPrime(i) && ((p-1)%i == 0))
                 primes.add(i);
         }
@@ -231,7 +233,7 @@ public class VerifiableSecretSharing {
                 for (int i = 0; i < polynom.coefficients.size(); i++) {
                     double ax = (polynom.coefficients.get(i) * Math.pow(point.getX(), i));
                     y += ax;
-                    y %= (p-1);
+//                    y %= (p-1);
                 }
                 point.setY(y);
             }
@@ -256,12 +258,6 @@ public class VerifiableSecretSharing {
     }
 
     public static double lagrangeFunc(double x, ArrayList<Point> points) {
-        System.out.print("Выбранные точки: ");
-        for (Point p : points) {
-            System.out.print(p + " ");
-        }
-        System.out.println();
-
         double res = 1;
         double sum = 0;
 
@@ -269,24 +265,27 @@ public class VerifiableSecretSharing {
             for (int j = 0; j < k; j++) {
                 if (j != i) {
                     double temp = points.get(i).getX() - points.get(j).getX();
-                    while (temp < 0)
-                        temp += p;
-                    res *= (x-points.get(j).getX()) * reverseNumber(temp);
-                    res %= p;
+//                    while (temp < 0)
+//                        temp += p;
+//                    double temp2 = (x-points.get(j).getX()) * reverseNumber(temp);
+                    double temp2 = (x-points.get(j).getX()) / temp;
+//                    while (temp2 < 0)
+//                        temp2 += p;
+                    res *= temp2;
+//                    res %= p;
                 }
             }
             sum += (res * points.get(i).getY());
-            sum %= p;
+//            sum %= p;
             res = 1;
         }
-        while (sum < 0)
-            sum += p;
+//        while (sum < 0)
+//            sum += p;
 
         if (x == 0)
             System.out.println("Секрет: " + sum);
         else
             System.out.println("Для X = " + x + ", значение Y = " + sum);
-        System.out.println();
         return sum;
     }
 
@@ -298,7 +297,7 @@ public class VerifiableSecretSharing {
             if ((res % p) == 0)
                 return i;
         }
-        return 0;
+        return 99999;
     }
 
     public static void bigTest() {
@@ -333,6 +332,36 @@ public class VerifiableSecretSharing {
                 }
                 if (test)
                     System.out.println("ВСЕ КЛЮЧИ ПОДОШЛИ, i = " + i + ", G = " + i);
+        }
+    }
+
+    public static void testAllKeys(ArrayList<Point> points) {
+        boolean result = true;
+        int counter = 0;
+        for (Point p : points) {
+            boolean temp = testKey(p);
+            if (!temp)
+                counter++;
+            result &= temp;
+        }
+        if (result) {
+            System.out.println("TRUE | Все " + points.size() + " штук ключей прошли проверку!");
+        }
+        else
+            System.out.println("FALSE | " + counter + " из " + points.size() + " не прошли проверку!" );
+        System.out.println();
+    }
+
+    public static void testLagrangeFunc(ArrayList<Point> points) {
+        double y;
+        for (int i = 0; i < n; i++) {
+            y = xyKey.get(i).getY();
+            double testY = lagrangeFunc(xyKey.get(i).getX(),points);
+            if (y == testY)
+                System.out.println("TRUE | Для " + xyKey.get(i) + " получили верный Y = " + testY);
+            else
+                System.out.println("FALSE | Для " + xyKey.get(i) + " получили неверный Y = " + testY);
+            System.out.println();
         }
     }
 
