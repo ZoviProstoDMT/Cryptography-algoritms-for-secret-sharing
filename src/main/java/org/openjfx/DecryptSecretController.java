@@ -101,7 +101,7 @@ public class DecryptSecretController {
     public void buildData() {
         ObservableList<String> tableList = FXCollections.observableArrayList();
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
-            tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
+            tableList.add(VerifiableSecretSharing.xyKey.get(i).toString());
         }
         keyList.setItems(tableList);
     }
@@ -125,7 +125,7 @@ public class DecryptSecretController {
         else {
             ObservableList<String> tableList = FXCollections.observableArrayList();
             for (Point point : points) {
-                tableList.add("                " + point.toString());
+                tableList.add(point.toString());
             }
             keyList2.setItems(tableList);
 

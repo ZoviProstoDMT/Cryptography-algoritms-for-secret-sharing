@@ -48,31 +48,26 @@ public class ShamirFirstController {
         mainTextArea.editableProperty().setValue(false);
 
         generateButton.setOnAction(actionEvent -> {
-            VerifiableSecretSharing.startMethod();
-            try {
-                App.setRoot("shamirSecondPage");
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!secretField.getText().equals("") && !pField.getText().equals("") &&
+                    !nField.getText().equals("") && !kField.getText().equals("")) {
+                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
+                VerifiableSecretSharing.g = VerifiableSecretSharing.getPRoot().get(0);
+                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
+                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
+                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
+                VerifiableSecretSharing.startMethod();
+                try {
+                    App.setRoot("shamirSecondPage");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-//            if (!secretField.getText().equals("") && !pField.getText().equals("") &&
-//                    !nField.getText().equals("") && !kField.getText().equals("")) {
-//                VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
-//                VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
-//                VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
-//                VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));
-//                VerifiableSecretSharing.startMethod();
-//                try {
-//                    App.setRoot("shamirSecondPage");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            else {
-//                shakeAnimation(secretField);
-//                shakeAnimation(pField);
-//                shakeAnimation(nField);
-//                shakeAnimation(kField);
-//            }
+            else {
+                shakeAnimation(secretField);
+                shakeAnimation(pField);
+                shakeAnimation(nField);
+                shakeAnimation(kField);
+            }
         });
 
         closeBtn.setOnAction(actionEvent -> {
@@ -86,7 +81,7 @@ public class ShamirFirstController {
         });
 
         depositBtn.setOnMouseClicked(event -> {
-            mainTextArea.setText("\n\n\t\t\t\t\t\tDeveloped by Dmitriy Kozikov. © 2020\n\t\t\t\t\t\t\t\t\t    -\n\t\t\t\t\t\t  GitHub: github.com/ZoviProstoDMT\n");
+            mainTextArea.setText("\n\nDeveloped by Dmitriy Kozikov. © 2020\n-\nGitHub: github.com/ZoviProstoDMT\n");
         });
     }
 

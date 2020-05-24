@@ -1,10 +1,10 @@
 package SecretShareLogic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Polynom {
 
+    int secret = VerifiableSecretSharing.getSecret();
     int dim;
     int f;
     ArrayList<Integer> coefficients = new ArrayList<>();
@@ -19,7 +19,7 @@ public class Polynom {
     public Polynom(int dim, int f) {
         this.dim = dim;
         this.f = f;
-        addRandomCoefficients(f);
+        addRandomCoefficients(f,secret);
         generatePolynomY(dim);
     }
 
@@ -50,27 +50,17 @@ public class Polynom {
         }
     }
 
-    public void addRandomCoefficients(int f) {
+    public void addRandomCoefficients(int f, int secret) {
+        coefficients.add(secret);
         for(int i = 1; i < dim; i++) {
-            if (i == dim-1) { // Проверка, чтобы k-1 коэффициент не был равен 0
-                while (true) {
-                    int rand = (int) (Math.random() * (f - 1));
-                    if (rand != 0) {
-                        coefficients.add(rand);
-                        break;
-                    }
+            while (true) {
+                int rand = (int) (Math.random() * (f - 1));
+                if (rand != 0) {
+                    coefficients.add(rand);
+                    break;
                 }
             }
-            else
-                coefficients.add((int) (Math.random() * (f-1)));
         }
-    }
-
-    public void set0Coefficient(int a) {
-        if (coefficients.size() == dim) {
-            coefficients.remove(0);
-        }
-        coefficients.add(0,a);
     }
 
     public void printCoefficients() {

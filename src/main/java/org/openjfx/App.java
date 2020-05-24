@@ -1,6 +1,5 @@
 package org.openjfx;
 
-import SecretShareLogic.Main;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -54,18 +53,6 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
-    }
-
-    public static void openNewScene(String window) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource(window));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Parent root = loader.getRoot();
-        scene = new Scene(root);
     }
 
     public static void main(String[] args) {

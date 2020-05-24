@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import SecretShareLogic.Main;
 import SecretShareLogic.Point;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
@@ -19,12 +18,6 @@ import javafx.stage.Stage;
 public class ShamirSecondController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button closeBtn;
 
     @FXML
@@ -34,7 +27,7 @@ public class ShamirSecondController {
     private Button generateSecret;
 
     @FXML
-    private Label polynomField;
+    private TextArea polynomField;
 
     @FXML
     private Button backBtn;
@@ -62,8 +55,9 @@ public class ShamirSecondController {
 
     @FXML
     void initialize() {
-        polynomField.setText(polynomField.getText() + VerifiableSecretSharing.polynom.toString()
-                + "    (mod " + VerifiableSecretSharing.q + ")");
+        polynomField.editableProperty().setValue(false);
+        polynomField.setText("f(x) = " + VerifiableSecretSharing.polynom.toString()
+                + "    (mod " + VerifiableSecretSharing.p + ")");
         buildData();
         buildChart();
 
@@ -113,7 +107,7 @@ public class ShamirSecondController {
     public void buildData() {
         ObservableList<String> tableList = FXCollections.observableArrayList();
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
-            tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
+            tableList.add(VerifiableSecretSharing.xyKey.get(i).toString());
         }
         keyList.setItems(tableList);
     }

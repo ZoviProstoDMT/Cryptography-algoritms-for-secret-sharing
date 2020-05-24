@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
@@ -42,12 +41,6 @@ public class LagrangeController {
     private ImageView checkBtn;
 
     @FXML
-    private AnchorPane secretResField;
-
-    @FXML
-    private Label polynomRes;
-
-    @FXML
     private Text textInfo;
 
     @FXML
@@ -58,6 +51,9 @@ public class LagrangeController {
 
     @FXML
     private Text yRes;
+
+    @FXML
+    private TextArea polynomRes;
 
     @FXML
     void initialize() {
@@ -107,7 +103,7 @@ public class LagrangeController {
     public void buildData() {
         ObservableList<String> tableList = FXCollections.observableArrayList();
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
-            tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
+            tableList.add(VerifiableSecretSharing.xyKey.get(i).toString());
         }
         keyList.setItems(tableList);
     }
@@ -133,12 +129,13 @@ public class LagrangeController {
             } else {
                 ObservableList<String> tableList = FXCollections.observableArrayList();
                 for (Point point : points) {
-                    tableList.add("                " + point.toString());
+                    tableList.add(point.toString());
                 }
                 keyList2.setItems(tableList);
 
                 polynomRes.setText("f(x) = " + VerifiableSecretSharing.polynom.toString()
-                        + "    (mod " + VerifiableSecretSharing.q + ")");
+                        + "    (mod " + VerifiableSecretSharing.p + ")");
+                polynomRes.editableProperty().setValue(false);
                 String[] str = inputX.getText().trim().split("\\D+");
                 yRes.setText("Для Х = " + str[0] + ", Y = " +
                         VerifiableSecretSharing.lagrangeFunc(Double.parseDouble(str[0]), points));

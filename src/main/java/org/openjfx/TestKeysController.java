@@ -109,7 +109,7 @@ public class TestKeysController {
     public void buildData() {
         ObservableList<String> tableList = FXCollections.observableArrayList();
         for (int i = 0; i < VerifiableSecretSharing.xyKey.size(); i++) {
-            tableList.add("                "+VerifiableSecretSharing.xyKey.get(i).toString());
+            tableList.add(VerifiableSecretSharing.xyKey.get(i).toString());
         }
         keyList.setItems(tableList);
     }
