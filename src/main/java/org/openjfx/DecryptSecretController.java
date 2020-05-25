@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class DecryptSecretController {
@@ -112,8 +113,8 @@ public class DecryptSecretController {
         try {
             for (int i = 0; i < VerifiableSecretSharing.getK(); i++) {
                 String[] str = keysSelectionModel.getSelectedItems().get(i).trim().split("\\D+");
-                double x = Double.parseDouble(str[1]);
-                double y = Double.parseDouble(str[3]);
+                long x = Long.parseLong(str[1]);
+                BigInteger y = new BigInteger(str[2]);
                 points.add(new Point(x, y));
             }
         } catch (Exception e) {

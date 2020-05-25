@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class LagrangeController {
@@ -117,8 +118,8 @@ public class LagrangeController {
             try {
                 for (int i = 0; i < VerifiableSecretSharing.getK(); i++) {
                     String[] str = keysSelectionModel.getSelectedItems().get(i).trim().split("\\D+");
-                    double x = Double.parseDouble(str[1]);
-                    double y = Double.parseDouble(str[3]);
+                    long x = Long.parseLong(str[1]);
+                    BigInteger y = new BigInteger(str[2]);
                     points.add(new Point(x, y));
                 }
             } catch (Exception e) {
@@ -138,7 +139,7 @@ public class LagrangeController {
                 polynomRes.editableProperty().setValue(false);
                 String[] str = inputX.getText().trim().split("\\D+");
                 yRes.setText("Для Х = " + str[0] + ", Y = " +
-                        VerifiableSecretSharing.lagrangeFunc(Double.parseDouble(str[0]), points));
+                        VerifiableSecretSharing.lagrangeFunc(Long.parseLong(str[0]), points));
                 keysSelectionModel.clearSelection();
             }
         }

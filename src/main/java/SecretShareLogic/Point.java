@@ -3,12 +3,14 @@ package SecretShareLogic;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.math.BigInteger;
+
 public class Point {
 
-    public Double x;
-    public Double y;
+    public long x;
+    public BigInteger y;
 
-    public Point(Double x, Double y) {
+    public Point(long x, BigInteger y) {
         this.x = x;
         this.y = y;
     }
@@ -16,19 +18,19 @@ public class Point {
     public Point() {
     }
 
-    public Double getX() {
+    public long getX() {
         return x;
     }
 
-    public void setX(Double x) {
+    public void setX(long x) {
         this.x = x;
     }
 
-    public Double getY() {
+    public BigInteger getY() {
         return y;
     }
 
-    public void setY(Double y) {
+    public void setY(BigInteger y) {
         this.y = y;
     }
 

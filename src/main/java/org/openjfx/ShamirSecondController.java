@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,7 +37,7 @@ public class ShamirSecondController {
     private ImageView backBtnIcon;
 
     @FXML
-    private LineChart<Double, Double> polynomXY;
+    private LineChart<Long, Double> polynomXY;
 
     @FXML
     private Button testKeysBtn;
@@ -113,10 +114,10 @@ public class ShamirSecondController {
     }
 
     public void buildChart() {
-        XYChart.Series<Double, Double> keysSeries = new XYChart.Series<>();
+        XYChart.Series<Long, Double> keysSeries = new XYChart.Series<>();
         polynomXY.legendVisibleProperty().setValue(false);
         for(Point p : VerifiableSecretSharing.xyKey)
-            keysSeries.getData().add(new XYChart.Data<>(p.getX(),p.getY()));
+            keysSeries.getData().add(new XYChart.Data<>(p.getX(),p.getY().doubleValue()));
         polynomXY.getData().addAll(keysSeries);
     }
 }
