@@ -2,19 +2,21 @@ package SecretShareLogic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class VerifiableSecretSharing {
     protected static int secret = 111;
-    public static int p = 311; // Большое простое число
-    protected static int n = 10; // Число частей ключа
-    protected static int k = 7; // Минимальный порог для восстановления ключа
+    public static int p = 9973; // Большое простое число
+    protected static int n = 300; // Число частей ключа
+    protected static int k = 10; // Минимальный порог для восстановления ключа
     public static double g = getPRoot().get(0); // g первообразный корень mod p
     public static ArrayList<Double> r = new ArrayList<>();
     public static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
     public static Polynom polynom;
 
     public static void startMethod() {
+        Date start = new Date();
         System.out.println("p = " + p + ", g = " + g);
         System.out.println("n = " + n + ", k = " + k + ", secret = " + secret + "\n");
         showPrimeFactors();
@@ -23,10 +25,10 @@ public class VerifiableSecretSharing {
         showR();
         showAllKeys();
         lagrangeFunc(0,xyKey);
-        lagrangeFunc(1,xyKey);
-        lagrangeFunc(2,xyKey);
         testAllKeys(xyKey);
         testLagrangeFunc(xyKey);
+        Date stop = new Date();
+        System.out.println("Program working " + (stop.getTime() - start.getTime())/1000 + " с " + (stop.getTime() - start.getTime())%1000 + " мс" );
     }
 
     public static ArrayList<Integer> getPRoot() {
@@ -96,7 +98,7 @@ public class VerifiableSecretSharing {
         Set<Long> set = new HashSet<>();
         for (long i = 0; i < p - 1; i++) {
             last = (last * a) % p;
-            if (set.contains(last)) // Если повтор
+            if (set.contains(last))
                 return false;
             set.add(last);
         }
@@ -269,27 +271,27 @@ public class VerifiableSecretSharing {
         System.out.println();
     }
 
-    public static BigInteger lagrangeFunc(double x, ArrayList<Point> points) {
-        double res = 1;
-        double sum = 0;
+    public static BigInteger lagrangeFunc(long x, ArrayList<Point> points) {
+        BigDecimal res = BigDecimal.valueOf(1);
+        BigDecimal sum = BigDecimal.valueOf(0);
 
         for (int i = 0; i < k; i++) {
             for (int j = 0; j < k; j++) {
                 if (j != i) {
-                    double temp = points.get(i).getX() - points.get(j).getX();
-//                    while (temp < 0)
-//                        temp += p;
-//                    double temp2 = (x-points.get(j).getX()) * reverseNumber(temp);
-                    double temp2 = (x-points.get(j).getX()) / temp;
+                    long temp = points.get(i).getX() - points.get(j).getX();
+                    long temp2 = x - points.get(j).getX();
+                    BigDecimal temp3 = BigDecimal.valueOf(temp2).divide(BigDecimal.valueOf(temp), 300, RoundingMode.HALF_UP);
+//                    for (int k = 9; i >= 0; i--)
+//                        temp2 = temp2.setScale(k, RoundingMode.HALF_UP);
 //                    while (temp2 < 0)
 //                        temp2 += p;
-                    res *= temp2;
+                    res = res.multiply(temp3);
 //                    res %= p;
                 }
             }
-            sum += (res * points.get(i).getY().longValue());
+            sum = sum.add(res.multiply(new BigDecimal(points.get(i).getY())));
 //            sum %= p;
-            res = 1;
+            res = BigDecimal.valueOf(1);
         }
 //        while (sum < 0)
 //            sum += p;
@@ -298,28 +300,17 @@ public class VerifiableSecretSharing {
             System.out.println("Секрет: " + sum);
         else
             System.out.println("Для X = " + x + ", значение Y = " + sum);
-        return BigDecimal.valueOf(sum).toBigInteger();
+        for (int i = 9; i >= 0; i--)
+        sum = sum.setScale(i, RoundingMode.HALF_UP);
+        return sum.toBigInteger();
     }
 
     // Поиск обратного числа в поле Fp
-    protected static int reverseNumber(double e) {
-        double res;
+    protected static int reverseNumber(long e) {
+        long res;
         for (int i = 1; i < (p-1); i++) {
             res = ((i * e) - 1);
             if ((res % (p-1)) == 0)
-                return i;
-        }
-        return 99999;
-    }
-
-    // Поиск обратного числа в поле Fp
-    protected static long reverseNumber(BigInteger e) {
-        BigInteger res;
-        for (long i = 1; i < p; i++) {
-            res = e.multiply(BigInteger.valueOf(i));
-            res = res.subtract(BigInteger.valueOf(1));
-            BigInteger temp = res.mod(BigInteger.valueOf(p));
-            if (temp.longValue() == 0)
                 return i;
         }
         return 99999;
