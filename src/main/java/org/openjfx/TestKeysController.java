@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class TestKeysController {
 
@@ -123,14 +124,14 @@ public class TestKeysController {
         else {
             if (keyInput.getText().equals("")) {
                 String[] str = keysSelectionModel.getSelectedItems().toString().trim().split("\\D+");
-                double x = Double.parseDouble(str[1]);
-                double y = Double.parseDouble(str[3]);
+                long x = Long.parseLong(str[1]);
+                BigInteger y = new BigInteger(str[2]);
                 testKeyResult(x, y);
             }
             else {
                 String[] str = keyInput.getText().trim().split("\\D+");
-                double x = Double.parseDouble(str[0]);
-                double y = Double.parseDouble(str[1]);
+                long x = Long.parseLong(str[0]);
+                BigInteger y = new BigInteger(str[1]);
                 testKeyResult(x, y);
             }
         }
@@ -138,7 +139,7 @@ public class TestKeysController {
         keysSelectionModel.clearSelection();
     }
 
-    public void testKeyResult(double x, double y) {
+    public void testKeyResult(long x, BigInteger y) {
         Point point = new Point(x, y);
         choosenKey.setText(point.toString());
         if (VerifiableSecretSharing.testKey(point)) {
