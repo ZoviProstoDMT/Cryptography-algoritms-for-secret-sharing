@@ -6,16 +6,16 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class VerifiableSecretSharing {
-    protected static int secret = 111;
-    public static int p = 9973; // Большое простое число
-    protected static int n = 300; // Число частей ключа
-    protected static int k = 10; // Минимальный порог для восстановления ключа
-    public static double g = getPRoot().get(0); // g первообразный корень mod p
+    protected static int secret = 18;
+    public static int p = 10013; // Большое простое число
+    protected static int n = 1200; // Число частей ключа
+    protected static int k = 150; // Минимальный порог для восстановления ключа
+    public static double g = getMinimalPRoot(); // g первообразный корень mod p
     public static ArrayList<Double> r = new ArrayList<>();
     public static ArrayList<Point> xyKey; // Список из ключей вида (х,у)
     public static Polynom polynom;
 
-    public static void startMethod() {
+    public static void startTestMethod() {
         Date start = new Date();
         System.out.println("p = " + p + ", g = " + g);
         System.out.println("n = " + n + ", k = " + k + ", secret = " + secret + "\n");
@@ -28,7 +28,13 @@ public class VerifiableSecretSharing {
         testAllKeys(xyKey);
         testLagrangeFunc(xyKey);
         Date stop = new Date();
-        System.out.println("Program working " + (stop.getTime() - start.getTime())/1000 + " с " + (stop.getTime() - start.getTime())%1000 + " мс" );
+        System.out.println("Program worked " + (stop.getTime() - start.getTime())/1000 + " с " + (stop.getTime() - start.getTime())%1000 + " мс" );
+    }
+
+    public static void startMethod() {
+        generateRandomPolynom();
+        generateRandKeys(false);
+        generateR();
     }
 
     public static ArrayList<Integer> getPRoot() {
@@ -38,6 +44,14 @@ public class VerifiableSecretSharing {
                 roots.add((int) i);
         }
         return roots;
+    }
+
+    public static long getMinimalPRoot() {
+        for (long i = 0; i < p; i++) {
+            if (isPRoot(i))
+                return i;
+        }
+        return 0;
     }
 
     public static TreeMap<Integer, Integer> findPrimeFactors(int a) {
@@ -280,28 +294,17 @@ public class VerifiableSecretSharing {
                 if (j != i) {
                     long temp = points.get(i).getX() - points.get(j).getX();
                     long temp2 = x - points.get(j).getX();
-                    BigDecimal temp3 = BigDecimal.valueOf(temp2).divide(BigDecimal.valueOf(temp), 300, RoundingMode.HALF_UP);
-//                    for (int k = 9; i >= 0; i--)
-//                        temp2 = temp2.setScale(k, RoundingMode.HALF_UP);
-//                    while (temp2 < 0)
-//                        temp2 += p;
+                    BigDecimal temp3 = BigDecimal.valueOf(temp2).divide(BigDecimal.valueOf(temp), 4*VerifiableSecretSharing.k, RoundingMode.HALF_UP);
                     res = res.multiply(temp3);
-//                    res %= p;
                 }
             }
             sum = sum.add(res.multiply(new BigDecimal(points.get(i).getY())));
-//            sum %= p;
             res = BigDecimal.valueOf(1);
         }
-//        while (sum < 0)
-//            sum += p;
-
+        for (int i = 9; i >= 0; i--)
+            sum = sum.setScale(i, RoundingMode.HALF_UP);
         if (x == 0)
             System.out.println("Секрет: " + sum);
-        else
-            System.out.println("Для X = " + x + ", значение Y = " + sum);
-        for (int i = 9; i >= 0; i--)
-        sum = sum.setScale(i, RoundingMode.HALF_UP);
         return sum.toBigInteger();
     }
 
@@ -335,15 +338,17 @@ public class VerifiableSecretSharing {
 
     public static void testLagrangeFunc(ArrayList<Point> points) {
         BigInteger y;
+        boolean res = true;
         for (int i = 0; i < n; i++) {
             y = xyKey.get(i).getY();
             BigInteger testY = lagrangeFunc(xyKey.get(i).getX(),points);
-            if (y.compareTo(testY) == 0)
+            res &= (y.compareTo(testY) == 0);
+/*            if (y.compareTo(testY) == 0)
                 System.out.println("TRUE | Для " + xyKey.get(i) + " получили верный Y = " + testY);
             else
-                System.out.println("FALSE | Для " + xyKey.get(i) + " получили неверный Y = " + testY);
-            System.out.println();
+                System.out.println("FALSE | Для " + xyKey.get(i) + " получили неверный Y = " + testY);*/
         }
+        System.out.println(res);
     }
 
     public static int getSecret() {

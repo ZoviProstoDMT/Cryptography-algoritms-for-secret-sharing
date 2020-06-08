@@ -54,7 +54,8 @@ public class Polynom {
         coefficients.add(secret);
         for(int i = 1; i < dim; i++) {
             while (true) {
-                int rand = (int) (Math.random() * (f - 1));
+                int rand;
+                rand = (int) (Math.random() * (VerifiableSecretSharing.p-1));
                 if (rand != 0) {
                     coefficients.add(rand);
                     break;
