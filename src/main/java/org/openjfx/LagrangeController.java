@@ -1,6 +1,6 @@
 package org.openjfx;
 
-import SecretShareLogic.Point;
+import SecretShareLogic.Key;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,7 +111,7 @@ public class LagrangeController {
 
     public void showPolynomResult() {
         MultipleSelectionModel<String> keysSelectionModel = keyList.getSelectionModel();
-        ArrayList<Point> points = new ArrayList<>();
+        ArrayList<Key> keys = new ArrayList<>();
         if (inputX.getText().equals(""))
             new Shake(inputX);
         else {
@@ -120,17 +120,17 @@ public class LagrangeController {
                     String[] str = keysSelectionModel.getSelectedItems().get(i).trim().split("\\D+");
                     long x = Long.parseLong(str[1]);
                     BigInteger y = new BigInteger(str[2]);
-                    points.add(new Point(x, y));
+                    keys.add(new Key(x, y));
                 }
             } catch (Exception e) {
                 new Shake(keyList);
             }
-            if (points.size() < VerifiableSecretSharing.getK()) {
+            if (keys.size() < VerifiableSecretSharing.getK()) {
                 new Shake(keyList);
             } else {
                 ObservableList<String> tableList = FXCollections.observableArrayList();
-                for (Point point : points) {
-                    tableList.add(point.toString());
+                for (Key key : keys) {
+                    tableList.add(key.toString());
                 }
                 keyList2.setItems(tableList);
 
@@ -139,7 +139,7 @@ public class LagrangeController {
                 polynomRes.editableProperty().setValue(false);
                 String[] str = inputX.getText().trim().split("\\D+");
                 yRes.setText("Для Х = " + str[0] + ", Y = " +
-                        VerifiableSecretSharing.lagrangeFunc(Long.parseLong(str[0]), points));
+                        VerifiableSecretSharing.lagrangeFunc(Long.parseLong(str[0]), keys));
                 keysSelectionModel.clearSelection();
             }
         }

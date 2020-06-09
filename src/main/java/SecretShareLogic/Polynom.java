@@ -10,52 +10,19 @@ public class Polynom {
     ArrayList<Integer> coefficients = new ArrayList<>();
     ArrayList<String> polynomY = new ArrayList<>();
 
-    public Polynom(int dim) {
-        this.dim = dim;
-        addRandomCoefficients();
-        generatePolynomY(dim);
-    }
-
     public Polynom(int dim, int f) {
         this.dim = dim;
         this.f = f;
-        addRandomCoefficients(f,secret);
+        addRandomCoefficients(secret);
         generatePolynomY(dim);
     }
 
-    public Polynom(int dim, ArrayList<Integer> coefficients) {
-        this.dim = dim;
-        this.coefficients = coefficients;
-        generatePolynomY(dim);
-    }
-
-    public int getDim() {
-        return dim;
-    }
-
-    public void setDim(int dim) {
-        this.dim = dim % f;
-        while (coefficients.size() != dim % f) {
-            coefficients.add((int) (Math.random() * (f-1)));
-        }
-    }
-
-    public String getCoefficients() {
-        return String.valueOf(coefficients);
-    }
-
-    public void addRandomCoefficients() {
-        for(int i = 1; i < dim; i++) {
-            coefficients.add((int) Math.random());
-        }
-    }
-
-    public void addRandomCoefficients(int f, int secret) {
+    public void addRandomCoefficients(int secret) {
         coefficients.add(secret);
         for(int i = 1; i < dim; i++) {
             while (true) {
                 int rand;
-                rand = (int) (Math.random() * (VerifiableSecretSharing.p-1));
+                rand = (int) (Math.random() * (VerifiableSecretSharing.n * 2));
                 if (rand != 0) {
                     coefficients.add(rand);
                     break;

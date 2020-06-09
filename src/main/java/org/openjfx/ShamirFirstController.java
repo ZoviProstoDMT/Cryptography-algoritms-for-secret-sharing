@@ -51,7 +51,7 @@ public class ShamirFirstController {
             if (!secretField.getText().equals("") && !pField.getText().equals("") &&
                     !nField.getText().equals("") && !kField.getText().equals("")) {
                 VerifiableSecretSharing.setP(Integer.parseInt(pField.getText()));
-                VerifiableSecretSharing.g = VerifiableSecretSharing.getPRoot().get(0);
+                VerifiableSecretSharing.g = VerifiableSecretSharing.getMinimalPRoot();
                 VerifiableSecretSharing.setSecret(Integer.parseInt(secretField.getText()));
                 VerifiableSecretSharing.setN(Integer.parseInt(nField.getText()));
                 VerifiableSecretSharing.setK(Integer.parseInt(kField.getText()));

@@ -1,11 +1,8 @@
 package org.openjfx;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import SecretShareLogic.Point;
+import SecretShareLogic.Key;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -116,7 +113,7 @@ public class ShamirSecondController {
     public void buildChart() {
         XYChart.Series<Long, Double> keysSeries = new XYChart.Series<>();
         polynomXY.legendVisibleProperty().setValue(false);
-        for(Point p : VerifiableSecretSharing.xyKey)
+        for(Key p : VerifiableSecretSharing.xyKey)
             keysSeries.getData().add(new XYChart.Data<>(p.getX(),p.getY().doubleValue()));
         polynomXY.getData().addAll(keysSeries);
     }
