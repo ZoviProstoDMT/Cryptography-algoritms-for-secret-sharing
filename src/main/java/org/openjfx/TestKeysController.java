@@ -1,6 +1,6 @@
 package org.openjfx;
 
-import SecretShareLogic.Point;
+import SecretShareLogic.Key;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,9 +140,9 @@ public class TestKeysController {
     }
 
     public void testKeyResult(long x, BigInteger y) {
-        Point point = new Point(x, y);
-        choosenKey.setText(point.toString());
-        if (VerifiableSecretSharing.testKey(point)) {
+        Key key = new Key(x, y);
+        choosenKey.setText(key.toString());
+        if (VerifiableSecretSharing.testKey(key)) {
             choosenKeyField.setStyle("-fx-border-color: linear-gradient(to bottom, lawngreen, green)");
             negativeRes.setStyle("-fx-opacity: 0");
             positiveRes.setStyle("-fx-opacity: 0.5");

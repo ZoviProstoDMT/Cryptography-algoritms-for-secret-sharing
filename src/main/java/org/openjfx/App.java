@@ -12,9 +12,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     double xOffset;
