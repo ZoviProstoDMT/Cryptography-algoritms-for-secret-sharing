@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
@@ -28,9 +27,6 @@ public class TestKeysController {
 
     @FXML
     private Button backBtn;
-
-    @FXML
-    private ImageView backBtnIcon;
 
     @FXML
     private ListView<String> keyList;
@@ -58,12 +54,9 @@ public class TestKeysController {
 
     @FXML
     void initialize() {
+        App.setBaseWindowActionsActions(closeBtn, minimizeBtn, backBtn);
         buildData();
-
-        checkBtn.setOnMouseClicked(event -> {
-            showResult();
-        });
-
+        checkBtn.setOnMouseClicked(event -> showResult());
         generateSecret.setOnAction(actionEvent -> {
             try {
                 App.setRoot("decryptSecretPage");
@@ -71,36 +64,9 @@ public class TestKeysController {
                 e.printStackTrace();
             }
         });
-
-        closeBtn.setOnAction(actionEvent -> {
-            Stage stage = (Stage) closeBtn.getScene().getWindow();
-            stage.close();
-        });
-
-        minimizeBtn.setOnAction(actionEvent -> {
-            Stage stage = (Stage) minimizeBtn.getScene().getWindow();
-            stage.setIconified(true);
-        });
-
-        backBtn.setOnAction(actionEvent -> {
-            try {
-                App.setRoot("shamirSecondPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
         lagrangeFuncBtn.setOnAction(actionEvent -> {
             try {
                 App.setRoot("lagrangePage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        generateSecret.setOnAction(actionEvent -> {
-            try {
-                App.setRoot("decryptSecretPage");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -120,15 +86,13 @@ public class TestKeysController {
         if (keyInput.getText().equals("") && keysSelectionModel.getSelectedItems().isEmpty()) {
             new Shake(keyList);
             new Shake(keyInput);
-        }
-        else {
+        } else {
             if (keyInput.getText().equals("")) {
                 String[] str = keysSelectionModel.getSelectedItems().toString().trim().split("\\D+");
                 long x = Long.parseLong(str[1]);
                 BigInteger y = new BigInteger(str[2]);
                 testKeyResult(x, y);
-            }
-            else {
+            } else {
                 String[] str = keyInput.getText().trim().split("\\D+");
                 long x = Long.parseLong(str[0]);
                 BigInteger y = new BigInteger(str[1]);

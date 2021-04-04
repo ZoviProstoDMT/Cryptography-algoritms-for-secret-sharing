@@ -19,7 +19,7 @@ public class Polynom {
 
     public void addRandomCoefficients(int secret) {
         coefficients.add(secret);
-        for(int i = 1; i < dim; i++) {
+        for (int i = 1; i < dim; i++) {
             while (true) {
                 int rand;
                 rand = (int) (Math.random() * (VerifiableSecretSharing.n * 2));
@@ -33,7 +33,7 @@ public class Polynom {
 
     public void printCoefficients() {
         for (int i = 0; i < coefficients.size(); i++) {
-            if (i == coefficients.size()-1)
+            if (i == coefficients.size() - 1)
                 System.out.print("a" + i + " = " + coefficients.get(i) + ".");
             else
                 System.out.print("a" + i + " = " + coefficients.get(i) + ", ");
@@ -50,12 +50,11 @@ public class Polynom {
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder("");
-        for(int i = 0; i < dim; i++) {
-            if (i == dim-1) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < dim; i++) {
+            if (i == dim - 1) {
                 s.append(coefficients.get(i)).append(polynomY.get(i));
-            }
-            else
+            } else
                 s.append(coefficients.get(i)).append(polynomY.get(i)).append(" + ");
         }
         return s.toString();

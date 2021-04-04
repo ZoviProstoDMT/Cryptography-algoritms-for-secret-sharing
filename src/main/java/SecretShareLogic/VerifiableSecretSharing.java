@@ -52,12 +52,6 @@ public class VerifiableSecretSharing {
         }
     }
 
-    protected static boolean testSecret(int secret) {
-        double res1 = powP(g,secret);
-        double res2 = r.get(0);
-        return res1 == res2;
-    }
-
     public static boolean testKey(Key key) {
         double res1 = 1;
         for (int i = 0; i < r.size(); i++) {
@@ -140,14 +134,6 @@ public class VerifiableSecretSharing {
                 key.setY(y);
             }
         }
-    }
-
-    protected static void showAllKeys() {
-        System.out.println("Пары ключей (" + n + " штук):");
-        for (Key p : xyKey)
-            System.out.print(p + "   ");
-        System.out.println();
-        System.out.println();
     }
 
     protected static void generateRandomPolynom() {

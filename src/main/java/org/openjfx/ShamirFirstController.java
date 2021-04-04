@@ -2,12 +2,10 @@ package org.openjfx;
 
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
@@ -16,7 +14,6 @@ public class ShamirFirstController {
 
     @FXML
     private Button closeBtn;
-
 
     @FXML
     private Button generateButton;
@@ -42,11 +39,12 @@ public class ShamirFirstController {
     @FXML
     private ImageView depositBtn;
 
+    private boolean isDepositPressed;
+
     @FXML
     void initialize() {
-
+        App.setBaseWindowActionsActions(closeBtn, minimizeBtn);
         mainTextArea.editableProperty().setValue(false);
-
         generateButton.setOnAction(actionEvent -> {
             if (!secretField.getText().equals("") && !pField.getText().equals("") &&
                     !nField.getText().equals("") && !kField.getText().equals("")) {
@@ -61,37 +59,37 @@ public class ShamirFirstController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 shakeAnimation(secretField);
                 shakeAnimation(pField);
                 shakeAnimation(nField);
                 shakeAnimation(kField);
             }
         });
-
-        closeBtn.setOnAction(actionEvent -> {
-            Stage stage = (Stage) closeBtn.getScene().getWindow();
-            stage.close();
-        });
-
-        minimizeBtn.setOnAction(actionEvent -> {
-            Stage stage = (Stage) minimizeBtn.getScene().getWindow();
-            stage.setIconified(true);
-        });
-
-        depositBtn.setOnMouseClicked(event -> {
-            mainTextArea.setText("\n\nDeveloped by Dmitriy Kozikov. © 2020\n-\nGitHub: github.com/ZoviProstoDMT\n");
-        });
+        depositBtn.setOnMouseClicked(event -> setNewDescriptionText());
     }
 
-    public void shakeAnimation(TextField textField) {
+    private void shakeAnimation(TextField textField) {
         if (textField.getText().equals("")) {
             new Shake(textField);
             textField.setStyle("-fx-border-color: red");
-        }
-        else
+        } else {
             textField.setStyle("-fx-border-color: linear-gradient(to top, rgba(220, 90, 90, 0.5), rgba(26, 72, 172, 0.5));");
+        }
+    }
+
+    private void setNewDescriptionText() {
+        if (isDepositPressed) {
+            mainTextArea.setText("Описание схемы:\n\n" +
+                    "Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме " +
+                    "\nШамира и является (k, n)–пороговой, где n — количество долей, на которые был " +
+                    "\nразделен секрет, k — количество долей, которые требуются для получения секрета. " +
+                    "\nТаким образом,восстановить секрет возможно при наличие любых k и более долей.");
+            isDepositPressed = false;
+        } else {
+            mainTextArea.setText("\n\nDeveloped by Dmitriy Kozikov. © 2020\n-\nGitHub: github.com/ZoviProstoDMT\n");
+            isDepositPressed = true;
+        }
     }
 }
 

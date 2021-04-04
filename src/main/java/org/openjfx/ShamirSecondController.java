@@ -1,7 +1,5 @@
 package org.openjfx;
 
-import java.io.IOException;
-
 import SecretShareLogic.Key;
 import SecretShareLogic.VerifiableSecretSharing;
 import javafx.collections.FXCollections;
@@ -9,17 +7,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ShamirSecondController {
 
     @FXML
     private Button closeBtn;
-
-    @FXML
-    private ImageView backBtnIcon1;
 
     @FXML
     private Button generateSecret;
@@ -29,9 +27,6 @@ public class ShamirSecondController {
 
     @FXML
     private Button backBtn;
-
-    @FXML
-    private ImageView backBtnIcon;
 
     @FXML
     private LineChart<Long, Double> polynomXY;
@@ -49,10 +44,8 @@ public class ShamirSecondController {
     private Button minimizeBtn;
 
     @FXML
-    private ImageView backBtnIcon11;
-
-    @FXML
     void initialize() {
+        App.setBaseWindowActionsActions(closeBtn, minimizeBtn);
         polynomField.editableProperty().setValue(false);
         polynomField.setText("f(x) = " + VerifiableSecretSharing.polynom.toString()
                 + "    (mod " + VerifiableSecretSharing.p + ")");
@@ -113,8 +106,8 @@ public class ShamirSecondController {
     public void buildChart() {
         XYChart.Series<Long, Double> keysSeries = new XYChart.Series<>();
         polynomXY.legendVisibleProperty().setValue(false);
-        for(Key p : VerifiableSecretSharing.xyKey)
-            keysSeries.getData().add(new XYChart.Data<>(p.getX(),p.getY().doubleValue()));
+        for (Key p : VerifiableSecretSharing.xyKey)
+            keysSeries.getData().add(new XYChart.Data<>(p.getX(), p.getY().doubleValue()));
         polynomXY.getData().addAll(keysSeries);
     }
 }
