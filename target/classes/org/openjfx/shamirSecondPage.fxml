@@ -2,90 +2,90 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirSecondController">
-   <children>
-      <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/background.jpg" />
-         </image>
-      </ImageView>
-      <AnchorPane prefHeight="99.0" prefWidth="900.0" styleClass="header" stylesheets="@styles.css" />
-      <Button fx:id="closeBtn" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="35.0" styleClass="close-button" stylesheets="@styles.css">
-         <graphic>
-            <ImageView fx:id="backBtnIcon1" fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-               <image>
-                  <Image url="@../../img/close.png" />
-               </image>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirSecondController">
+    <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../img/background.jpg"/>
+    </ImageView>
+    <AnchorPane prefHeight="99.0" prefWidth="900.0" styleClass="header" stylesheets="@styles.css"/>
+    <Button fx:id="closeBtn" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="35.0"
+            styleClass="close-button" stylesheets="@styles.css">
+        <graphic>
+            <ImageView fx:id="backBtnIcon1" fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true"
+                       styleClass="button">
+                <Image url="@../../img/close.png"/>
             </ImageView>
-         </graphic>
-      </Button>
-      <AnchorPane layoutY="99.0" prefHeight="502.0" prefWidth="900.0" styleClass="main-page" stylesheets="@styles.css">
-         <children>
-            <Button fx:id="generateSecret" layoutX="713.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" stylesheets="@styles.css" text="ВЫЧИСЛИТЬ СЕКРЕТ" />
-            <Button fx:id="backBtn" layoutX="311.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" stylesheets="@styles.css">
-               <graphic>
-                  <ImageView fx:id="backBtnIcon" fitHeight="24.0" fitWidth="19.0" opacity="0.6" pickOnBounds="true" preserveRatio="true" styleClass="button">
-                     <image>
-                        <Image url="@../../img/back.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label layoutX="86.0" layoutY="394.0" opacity="0.7" prefHeight="22.0" prefWidth="175.0" stylesheets="@styles.css" text="Доли секрета - пары (x,y)">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <LineChart fx:id="polynomXY" layoutX="278.0" layoutY="136.0" prefHeight="290.0" prefWidth="574.0">
-              <xAxis>
-                <NumberAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-            <Button fx:id="testKeysBtn" layoutX="543.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" stylesheets="@styles.css" text="ПРОВЕРИТЬ КЛЮЧИ" />
-            <Text layoutX="298.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сгенерированный многочлен" textAlignment="CENTER">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <ListView fx:id="keyList" layoutX="81.0" layoutY="152.0" prefHeight="238.0" prefWidth="186.0" />
-            <Button fx:id="lagrangeFuncBtn" layoutX="374.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" stylesheets="@styles.css" text="ПОЛИНОМ ЛАГРАНЖА" />
-            <TextArea fx:id="polynomField" layoutX="80.0" layoutY="72.0" prefHeight="66.0" prefWidth="758.0" styleClass="rainbow-border">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextArea>
-         </children></AnchorPane>
-      <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0" styleClass="close-button" stylesheets="@styles.css">
-         <graphic>
-            <ImageView fx:id="backBtnIcon11" fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-               <image>
-                  <Image url="@../../img/minimize.png" />
-               </image>
+        </graphic>
+    </Button>
+    <AnchorPane layoutY="99.0" prefHeight="502.0" prefWidth="900.0" styleClass="main-page" stylesheets="@styles.css">
+        <Button fx:id="generateSecret" layoutX="713.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0"
+                prefWidth="150.0" stylesheets="@styles.css" text="ВЫЧИСЛИТЬ СЕКРЕТ"/>
+        <Button fx:id="backBtn" layoutX="311.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0"
+                prefWidth="43.0" stylesheets="@styles.css">
+            <graphic>
+                <ImageView fx:id="backBtnIcon" fitHeight="24.0" fitWidth="19.0" opacity="0.6" pickOnBounds="true"
+                           preserveRatio="true" styleClass="button">
+                    <Image url="@../../img/back.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Label layoutX="86.0" layoutY="394.0" opacity="0.7" prefHeight="22.0" prefWidth="175.0"
+               stylesheets="@styles.css" text="Доли секрета - пары (x,y)">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <LineChart fx:id="polynomXY" layoutX="278.0" layoutY="136.0" prefHeight="290.0" prefWidth="574.0">
+            <xAxis>
+                <NumberAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+        <Button fx:id="testKeysBtn" layoutX="543.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0"
+                prefWidth="150.0" stylesheets="@styles.css" text="ПРОВЕРИТЬ КЛЮЧИ"/>
+        <Text layoutX="298.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сгенерированный многочлен"
+              textAlignment="CENTER">
+            <font>
+                <Font size="22.0"/>
+            </font>
+        </Text>
+        <ListView fx:id="keyList" layoutX="81.0" layoutY="152.0" prefHeight="238.0" prefWidth="186.0"/>
+        <Button fx:id="lagrangeFuncBtn" layoutX="374.0" layoutY="441.0" mnemonicParsing="false" prefHeight="38.0"
+                prefWidth="150.0" stylesheets="@styles.css" text="ПОЛИНОМ ЛАГРАНЖА"/>
+        <TextArea fx:id="polynomField" layoutX="80.0" layoutY="72.0" prefHeight="66.0" prefWidth="758.0"
+                  styleClass="rainbow-border">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </TextArea>
+    </AnchorPane>
+    <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0"
+            styleClass="close-button" stylesheets="@styles.css">
+        <graphic>
+            <ImageView fx:id="backBtnIcon11" fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true"
+                       styleClass="button">
+                <Image url="@../../img/minimize.png"/>
             </ImageView>
-         </graphic>
-      </Button>
-      <Label layoutX="257.0" layoutY="8.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css" text="Схема разделения секрета">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="180.0" layoutY="31.0" prefHeight="66.0" prefWidth="538.0" styleClass="name" stylesheets="@styles.css" text="ФЕЛЬДМАНА-ШАМИРА">
-         <font>
-            <Font name="System Bold" size="45.0" />
-         </font>
-      </Label>
-   </children>
+        </graphic>
+    </Button>
+    <Label layoutX="257.0" layoutY="8.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css"
+           text="Схема разделения секрета">
+        <font>
+            <Font size="30.0"/>
+        </font>
+    </Label>
+    <Label layoutX="180.0" layoutY="31.0" prefHeight="66.0" prefWidth="538.0" styleClass="name"
+           stylesheets="@styles.css"
+           text="ФЕЛЬДМАНА-ШАМИРА">
+        <font>
+            <Font name="System Bold" size="45.0"/>
+        </font>
+    </Label>
 </AnchorPane>

@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.openjfx.animations.Shake;
 
 import java.io.IOException;
@@ -28,9 +27,6 @@ public class LagrangeController {
 
     @FXML
     private Button backBtn;
-
-    @FXML
-    private ImageView backBtnIcon;
 
     @FXML
     private ListView<String> keyList;
@@ -58,24 +54,11 @@ public class LagrangeController {
 
     @FXML
     void initialize() {
+        App.setBaseWindowActionsActions(closeBtn, minimizeBtn, backBtn);
         keyList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        textInfo.setText("необходимо выбрать " + VerifiableSecretSharing.getK() +" ключей");
+        textInfo.setText("необходимо выбрать " + VerifiableSecretSharing.getK() + " ключей");
         buildData();
-
-        checkBtn.setOnMouseClicked(event -> {
-            showPolynomResult();
-        });
-
-        closeBtn.setOnAction(actionEvent -> {
-            Stage stage = (Stage) closeBtn.getScene().getWindow();
-            stage.close();
-        });
-
-        minimizeBtn.setOnAction(actionEvent -> {
-            Stage stage = (Stage) minimizeBtn.getScene().getWindow();
-            stage.setIconified(true);
-        });
-
+        checkBtn.setOnMouseClicked(event -> showPolynomResult());
         testKeyBtn.setOnAction(actionEvent -> {
             try {
                 App.setRoot("testKeyPage");
@@ -83,15 +66,6 @@ public class LagrangeController {
                 e.printStackTrace();
             }
         });
-
-        backBtn.setOnAction(actionEvent -> {
-            try {
-                App.setRoot("shamirSecondPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
         generateSecretBtn.setOnAction(actionEvent -> {
             try {
                 App.setRoot("decryptSecretPage");

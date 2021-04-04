@@ -1,110 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirFirstController">
-   <children>
-      <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/background3.jpg" />
-         </image>
-      </ImageView>
-      <AnchorPane prefHeight="99.0" prefWidth="900.0" styleClass="header" stylesheets="@styles.css" />
-      <Button fx:id="closeBtn" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="35.0" styleClass="close-button" stylesheets="@styles.css">
-         <graphic>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ShamirFirstController">
+    <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../img/background3.jpg"/>
+    </ImageView>
+    <AnchorPane prefHeight="99.0" prefWidth="900.0" styleClass="header" stylesheets="@styles.css"/>
+    <Button fx:id="closeBtn" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="35.0"
+            styleClass="close-button" stylesheets="@styles.css">
+        <graphic>
             <ImageView fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-               <image>
-                  <Image url="@../../img/close.png" />
-               </image>
+                <Image url="@../../img/close.png"/>
             </ImageView>
-         </graphic>
-      </Button>
-      <AnchorPane layoutY="99.0" prefHeight="502.0" prefWidth="900.0" styleClass="main-page" stylesheets="@styles.css">
-         <children>
-            <Button fx:id="generateButton" layoutX="348.0" layoutY="430.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="210.0" stylesheets="@styles.css" text="НАЧАТЬ">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <TextField fx:id="secretField" layoutX="78.0" layoutY="77.0" prefHeight="30.0" prefWidth="743.0" promptText="секрет" styleClass="rainbow-border" stylesheets="@styles.css" />
-            <Text layoutX="200.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Введите секрет криптографического шифрования" textAlignment="CENTER">
-               <font>
-                  <Font size="22.0" />
-               </font>
+        </graphic>
+    </Button>
+    <AnchorPane layoutY="99.0" prefHeight="502.0" prefWidth="900.0" styleClass="main-page" stylesheets="@styles.css">
+        <Button fx:id="generateButton" layoutX="348.0" layoutY="430.0" mnemonicParsing="false" prefHeight="46.0"
+                prefWidth="210.0" stylesheets="@styles.css" text="НАЧАТЬ">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Button>
+        <TextField fx:id="secretField" layoutX="78.0" layoutY="77.0" prefHeight="30.0" prefWidth="743.0"
+                   promptText="секрет" styleClass="rainbow-border" stylesheets="@styles.css"/>
+        <Text layoutX="200.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Введите секрет криптографического шифрования" textAlignment="CENTER">
+            <font>
+                <Font size="22.0"/>
+            </font>
+        </Text>
+        <AnchorPane layoutX="43.0" layoutY="121.0" prefHeight="46.0" prefWidth="259.0">
+            <Text layoutX="7.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Большое простое число"
+                  textAlignment="CENTER">
+                <font>
+                    <Font size="22.0"/>
+                </font>
             </Text>
-            <AnchorPane layoutX="43.0" layoutY="121.0" prefHeight="46.0" prefWidth="259.0">
-               <children>
-                  <Text layoutX="7.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Большое простое число" textAlignment="CENTER">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="1.0" layoutY="54.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="(модуль мультипликативного кольца вычетов)" textAlignment="CENTER" />
-                  <TextField fx:id="pField" layoutX="1.0" layoutY="70.0" prefHeight="30.0" prefWidth="258.0" promptText="P" styleClass="rainbow-border" stylesheets="@styles.css" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="600.0" layoutY="120.0" prefHeight="46.0" prefWidth="259.0">
-               <children>
-                  <Text layoutX="41.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пороговое число" textAlignment="CENTER">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="9.0" layoutY="54.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="(требуемое колличество для расшифровки)" textAlignment="CENTER" />
-                  <TextField fx:id="kField" layoutX="9.0" layoutY="71.0" prefHeight="30.0" prefWidth="241.0" promptText="K" styleClass="rainbow-border" stylesheets="@styles.css" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="323.0" layoutY="120.0" prefHeight="46.0" prefWidth="259.0">
-               <children>
-                  <Text layoutX="29.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество ключей" textAlignment="CENTER">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="nField" layoutX="28.0" layoutY="71.0" prefHeight="30.0" prefWidth="202.0" promptText="N" styleClass="rainbow-border" stylesheets="@styles.css" />
-               </children>
-            </AnchorPane>
-            <TextArea fx:id="mainTextArea" layoutX="45.0" layoutY="247.0" prefHeight="166.0" prefWidth="608.0" text="Описание схемы:&#10;&#10;Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме &#10;Шамира и является (k, n)–пороговой, где n — количество долей, на которые был &#10;разделен секрет, k — количество долей, которые требуются для получения секрета. &#10;Таким образом,восстановить секрет возможно при наличие любых k и более долей.">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextArea>
-            <TextArea layoutX="664.0" layoutY="247.0" prefHeight="166.0" prefWidth="186.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextArea>
-            <ImageView fx:id="depositBtn" fitHeight="158.0" fitWidth="186.0" layoutX="664.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" styleClass="secret-button">
-               <image>
-                  <Image url="@../../img/deposit.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-      <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0" styleClass="close-button" stylesheets="@styles.css">
-         <graphic>
+            <Text layoutX="1.0" layoutY="54.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="(модуль мультипликативного кольца вычетов)" textAlignment="CENTER"/>
+            <TextField fx:id="pField" layoutX="1.0" layoutY="70.0" prefHeight="30.0" prefWidth="258.0"
+                       promptText="P"
+                       styleClass="rainbow-border" stylesheets="@styles.css"/>
+        </AnchorPane>
+        <AnchorPane layoutX="600.0" layoutY="120.0" prefHeight="46.0" prefWidth="259.0">
+            <Text layoutX="41.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пороговое число"
+                  textAlignment="CENTER">
+                <font>
+                    <Font size="22.0"/>
+                </font>
+            </Text>
+            <Text layoutX="9.0" layoutY="54.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="(требуемое колличество для расшифровки)" textAlignment="CENTER"/>
+            <TextField fx:id="kField" layoutX="9.0" layoutY="71.0" prefHeight="30.0" prefWidth="241.0"
+                       promptText="K"
+                       styleClass="rainbow-border" stylesheets="@styles.css"/>
+        </AnchorPane>
+        <AnchorPane layoutX="323.0" layoutY="120.0" prefHeight="46.0" prefWidth="259.0">
+            <Text layoutX="29.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество ключей"
+                  textAlignment="CENTER">
+                <font>
+                    <Font size="22.0"/>
+                </font>
+            </Text>
+            <TextField fx:id="nField" layoutX="28.0" layoutY="71.0" prefHeight="30.0" prefWidth="202.0"
+                       promptText="N" styleClass="rainbow-border" stylesheets="@styles.css"/>
+        </AnchorPane>
+        <TextArea fx:id="mainTextArea" layoutX="45.0" layoutY="247.0" prefHeight="166.0" prefWidth="608.0"
+                  text="Описание схемы:&#10;&#10;Проверяемая схема разделения секрета Фельдмана-Шамира основана на схеме &#10;Шамира и является (k, n)–пороговой, где n — количество долей, на которые был &#10;разделен секрет, k — количество долей, которые требуются для получения секрета. &#10;Таким образом,восстановить секрет возможно при наличие любых k и более долей.">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </TextArea>
+        <TextArea layoutX="664.0" layoutY="247.0" prefHeight="166.0" prefWidth="186.0">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </TextArea>
+        <ImageView fx:id="depositBtn" fitHeight="158.0" fitWidth="186.0" layoutX="664.0" layoutY="247.0"
+                   pickOnBounds="true" preserveRatio="true" styleClass="secret-button">
+            <Image url="@../../img/deposit.png"/>
+        </ImageView>
+    </AnchorPane>
+    <Button fx:id="minimizeBtn" layoutX="809.0" layoutY="11.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="6.0"
+            styleClass="close-button" stylesheets="@styles.css">
+        <graphic>
             <ImageView fitHeight="13.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-               <image>
-                  <Image url="@../../img/minimize.png" />
-               </image>
+                <Image url="@../../img/minimize.png"/>
             </ImageView>
-         </graphic>
-      </Button>
-      <Label layoutX="257.0" layoutY="8.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css" text="Схема разделения секрета">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="180.0" layoutY="31.0" prefHeight="66.0" prefWidth="538.0" styleClass="name" stylesheets="@styles.css" text="ФЕЛЬДМАНА-ШАМИРА">
-         <font>
-            <Font name="System Bold" size="45.0" />
-         </font>
-      </Label>
-   </children>
+        </graphic>
+    </Button>
+    <Label layoutX="257.0" layoutY="8.0" prefHeight="46.0" prefWidth="385.0" styleClass="name" stylesheets="@styles.css"
+           text="Схема разделения секрета">
+        <font>
+            <Font size="30.0"/>
+        </font>
+    </Label>
+    <Label layoutX="180.0" layoutY="31.0" prefHeight="66.0" prefWidth="538.0" styleClass="name"
+           stylesheets="@styles.css"
+           text="ФЕЛЬДМАНА-ШАМИРА">
+        <font>
+            <Font name="System Bold" size="45.0"/>
+        </font>
+    </Label>
 </AnchorPane>

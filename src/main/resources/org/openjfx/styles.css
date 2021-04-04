@@ -21,7 +21,7 @@
 }
 
 .label.name {
-    -fx-text-fill: radial-gradient(radius 50% , #000000, #393939);
+    -fx-text-fill: radial-gradient(radius 50%, #000000, #393939);
 }
 
 .decoration {
@@ -38,7 +38,7 @@
 }
 
 .text-area .text {
-    -fx-text-alignment: center ;
+    -fx-text-alignment: center;
 }
 
 .rainbow-border {
@@ -59,6 +59,7 @@
 .chart-series-line {
     -fx-stroke: linear-gradient(to top, #dc5a5a, #1a48ac);
 }
+
 .chart-line-symbol {
     -fx-background-color: rgba(0, 0, 0, 0);
 }
@@ -119,7 +120,7 @@
     -fx-border-color: #1a48ac;
     -fx-animated: true, 1.5s;
     -fx-opacity: 1;
-    -fx-cursor : default;
+    -fx-cursor: default;
 }
 
 .button:pressed {
